@@ -1,0 +1,217 @@
+<html>
+<head>
+  <meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+  <title>Защитные маски</title>
+  <!-- <link rel="icon" href="/favicon.ico" type="image/x-icon"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="preload" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"></noscript>
+<style>
+  .pulsate{-webkit-animation-name:pulsate;animation-name:pulsate;-webkit-transform-origin:center;transform-origin:center}@keyframes pulsate{0%{-webkit-animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94);animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94);-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}50%{-webkit-transform:scale3d(0.8,0.8,0.8);transform:scale3d(0.8,0.8,0.8)}100%{-webkit-animation-timing-function:cubic-bezier(0.895,0.03,0.685,0.22);animation-timing-function:cubic-bezier(0.895,0.03,0.685,0.22);-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}}
+  .fold{-webkit-animation-name:fold;animation-name:fold}@keyframes fold{0%{-webkit-animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94);animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94);-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}30%{-webkit-animation-timing-function:cubic-bezier(0.455,0.03,0.515,0.955);animation-timing-function:cubic-bezier(0.455,0.03,0.515,0.955);-webkit-transform:scale3d(1,0.4,1);transform:scale3d(1,0.4,1)}60%{opacity:1;-webkit-animation-timing-function:cubic-bezier(0.455,0.03,0.515,0.955);animation-timing-function:cubic-bezier(0.455,0.03,0.515,0.955);-webkit-transform:scale3d(0.4,0.4,1);transform:scale3d(0.4,0.4,1)}100%{opacity:0;-webkit-animation-timing-function:cubic-bezier(0.55,0.085,0.68,0.53);animation-timing-function:cubic-bezier(0.55,0.085,0.68,0.53);-webkit-transform:scale3d(0.2,0.2,0.2);transform:scale3d(0.2,0.2,0.2)}}
+  .unfold{-webkit-animation-name:unfold;animation-name:unfold}@keyframes unfold{0%{opacity:0;-webkit-animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94);animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94);-webkit-transform:scale3d(0,0,0);transform:scale3d(0,0,0)}30%{opacity:1;-webkit-animation-timing-function:cubic-bezier(0.455,0.03,0.515,0.955);animation-timing-function:cubic-bezier(0.455,0.03,0.515,0.955);-webkit-transform:scale3d(0.4,0.4,1);transform:scale3d(0.4,0.4,1)}60%{-webkit-animation-timing-function:cubic-bezier(0.455,0.03,0.515,0.955);animation-timing-function:cubic-bezier(0.455,0.03,0.515,0.955);-webkit-transform:scale3d(0.4,1,1);transform:scale3d(0.4,1,1)}100%{-webkit-animation-timing-function:cubic-bezier(0.55,0.085,0.68,0.53);animation-timing-function:cubic-bezier(0.55,0.085,0.68,0.53);-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}}
+  .flip{-webkit-animation-name:flip;animation-name:flip}@keyframes flip{from{-webkit-transform:perspective(400px) rotateY(-360deg) scale3d(1,1,1);transform:perspective(400px) rotateY(-360deg) scale3d(1,1,1);-webkit-animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94);animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94)}50%{-webkit-transform:perspective(400px) rotateY(-180deg) scale3d(1.2,1.2,1.2);transform:perspective(400px) rotateY(-180deg) scale3d(1.2,1.2,1.2);-webkit-animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94);animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94)}to{-webkit-transform:perspective(400px) rotateY(0deg) scale3d(1,1,1);transform:perspective(400px) rotateY(0deg) scale3d(1,1,1);-webkit-animation-timing-function:cubic-bezier(0.95,0.05,0.795,0.035);animation-timing-function:cubic-bezier(0.95,0.05,0.795,0.035)}}
+  .duration-500{-webkit-animation-duration:.5s;animation-duration:.5s}
+  .duration-1000{-webkit-animation-duration:1s;animation-duration:1s}
+  .duration-2000{-webkit-animation-duration:2s;animation-duration:2s}
+  header img{max-height:4rem}
+  .fs-1{font-size:1.1rem}
+  /* .op-8{opacity:0.8} */
+  a:hover{text-decoration:none}
+  main i{cursor:default}
+  .fs-10{font-size:10vh}
+  .bg-image{background-image: url(./img/stop.jpg); background-repeat:round}
+  /* .bg-edge{background-size:100% 5vh} */
+</style>
+</head>
+<!-- <body class='container-fluid' style="background-image: url(./img/stop-coronavirus.jpg);background-size:100% 1%"> -->
+<body class='container-fluid text-center'>
+<header class='row align-items-center py-3 bg-info font-weight-bold text-uppercase shadow'>
+  <div class="col-1"></div>
+  <a class='col-2' href=''><img class='img-fluid rounded' src='./img/my-logo.jpg'/></a>
+  <a class='d-none d-lg-flex col-lg-4 text-light'><i class="fa fa-star-of-life mr-2"></i>Защита от коронавируса</a>
+  <a class='col-2 col-lg-1 text-light' href='#contacts'><i class="fa fa-phone fa-lg"></i></a>
+  <a class='col-2 col-lg-1 text-light' href='#delivery'><i class="fa fa-truck fa-lg"></i></a>
+  <a class='col-2 col-lg-1 text-light' href='#payment'><i class="fa fa-wallet fa-lg"></i></a>
+  <a class='col-2 col-lg-1' href='#cart'><i class='fa fa-shopping-cart fa-lg text-light'></i></a>
+  <!-- fa-certificate cart-plus p-3 bg-secondary rounded-circle" -->
+  <div class="col-1"></div>
+</header>
+<div class='row'>
+  <div class='col-1 bg-image'></div>
+  <main id='home' class='col-10 shadow'><!--  style='margin-left:5%; margin-right:5%' -->
+    <div class='row p-4 bg-light'>
+      <h3 class='col-12 py-4'>Почему маска важна для защиты от коронавируса?</h3>
+      <div class='px-lg-4 text-left'>
+        Согласно рекомендациям ВОЗ и FDA, маски и респираторы могут помочь в борьбе против коронавируса. Одноразовые маски для лица помогают защитить окружающих от вас. Респираторы защищают вас от инфицирования окружающими людьми.
+        <br><br>Вирус передается воздушно-капельным путем. Частицы вируса содержатся в пыли и каплях влаги. Для механической защиты используют маски и респираторы.<br><br>Мы помогаем людям уберечь себя и своих близких от возможности заражения в общественных местах.<!-- Качество защиты от действия вируса определяется классом (FFP) маски для лица. -->
+      </div>
+    </div>
+    <div id='contacts' class='row py-4 badge-dark'><!-- стрелки -->
+      <h3 class='col-12 col-sm-6 p-4'>Позвоните нам :)</h3>
+      <h5 class='col-12 col-sm-6 p-4'><a class='text-light' href='tel:+79266353680'>+7(926)635-36-80</a><a class='d-block mt-3 text-light' href='tel:+79689461184'>+7(968)946-11-84</a></h5>
+      <h3 class='col-12 col-sm-6 p-4'>или оставьте заявку!</h3>
+      <h3 class='col-12 col-sm-6 p-4'><a class='p-3 btn btn-danger font-weight-bold'><i class='fa fa-edit fa-lg'></i>ОСТАВИТЬ ОНЛАЙ-ЗАЯВКУ</a></h3>
+      <h5 class='col-12 p-4'>Мы работаем для Вас ежедневно:<br>с 10:00 до 20:00</h5>
+    </div>
+    <div id='catalog' class='row py-4 bg-white'></div>
+    <div class='row p-3 badge-dark text-uppercase fs-1'>
+      <div class='col-12 col-md-6'><div class='p-3 shadow-lg'>
+        <div><i class='fa fa-star fa-4x'></i></div>
+        <div>Вся продукция изготовлена в соответствии с мировыми стандартами.</div>
+      </div></div>
+      <div class='col-12 col-md-6'><div class='p-3 shadow-lg'>
+        <div><i class='fa fa-check-circle fa-4x'></i></div>
+        <!-- В связи с ажиотажем на средства защиты мы не завышаем цены. -->
+        <div>Мы не спекулируем на ажиотаже средств защиты, поэтому и цены на продукцию более чем демократичные.<br>Наши курьеры меняют маски и перчатки каждые 2 часа.</div>
+      </div></div>
+      <div id='delivery' class='col-12 col-md-6'><div class='p-3 shadow-lg'>
+        <div><i class='fa fa-truck fa-4x'></i></div>
+        <div>В день заказа или на следующий день.<br>Доставка по Москве в пределах МКАД ... руб<br>Доставка за МКАД до 10 км ... руб<br>В регионы отправка курьерскими службами.</div>
+      </div></div>
+      <div id='payment' class='col-12 col-md-6'><div class='p-3 shadow-lg'>
+        <div><i class='fa fa-wallet fa-4x'></i></div>
+        <div>Оплата товара производится после получения и/или безналичным расчетом.<br>При заказе от 1000 руб доставка бесплатная в пределах МКАД.</div>
+      </div></div>
+    </div>
+    <div class='row p-4 bg-white'>
+      <div class='pt-4 px-lg-4 text-left'>
+        Защитные маски для лица — это средства защиты барьерного типа. В условиях эпидемии важно носить маску для лица, чтобы не заболеть, а также чтобы не подвергать опасности здоровье окружающих: иногда заболевание проходит бессимптомно, и человек не знает, что он может быть заразен.
+      </div>
+      <h4 class='col-12 py-3'>Как правильно носить маску для лица</h4>
+      <div class='px-lg-4 text-left'>
+        Одноразовые маски можно носить всего два часа — после этого ее необходимо утилизировать: нельзя просто выкинуть использованную маску в мусорное ведро: перед этим ее нужно положить в отдельный пакет и герметично его закрыть.<br><br>В отличие от одноразовых масок, тканевые защитные маски можно использовать повторно. Купить многоразовую маску для лица намного выгоднее, чем постоянно менять одноразовые. Важно следовать правилам, как использовать многоразовую маску для лица:<ul><li>Многоразовую защитную маску можно носить 2–3 часа.</li><li>После использования многоразовой маски необходимо постирать ее в горячей воде с моющим средством, мылом или стиральным порошком.</li><li>Перед повторным использованием защитную маску нужно обработать паром и прогладить утюгом.</li></ul>
+      </div>
+      <h4 class='col-12 py-3'>Как не заболеть</h4>
+      <div class='px-lg-4 text-left'>
+        Важно помнить, что ношение защитной маски для лица эффективно только если соблюдать все меры профилактики. Чтобы не заболеть, рекомендуется также:<ul><li>избегать мест скопления людей;</li><li>не трогать лицо и слизистые оболочки руками;</li><li>регулярно мыть руки с мылом не менее 20 секунд;</li><li>дезинфицировать предметы, которыми вы пользовались до мытья рук.</li></ul>
+      </div>
+      <h4 class='col-12 py-3'>Кому нужно носить маску</h4>
+      <div class='px-lg-4 text-left'>
+        Маску обязательно носить следующим категориям людей:<ul><li>заболевшим людям, чтобы не допустить распространение инфекции;</li><li>врачам и медицинскому персоналу;</li><li>людям, которые оказывают медицинскую помощь больным или контактируют с ними.</li></ul>Во время карантина защитные маски для лица нужно носить всем. В публичных местах и общественном транспорте маска для лица обязательна!
+      </div>
+    </div>
+    <div id='comments' class='row py-4 badge-dark'></div>
+    <div id='certified' class='row py-4 badge-light'>
+      <h3 class='col-12 py-4'>Наша продукция сертифицирована</h3>
+      <div class='col-12 col-md-6'><img class='img-fluid shadow' src='img/certified-1.jpg'/></div>
+      <div class='col-12 col-md-6'><img class='img-fluid shadow' src='img/certified-2.jpg'/></div>
+    </div>
+  </main>
+  <div class='col-1 bg-image'></div>
+</div>
+<div id='modal'></div>
+<footer>
+  <div class='row position-absolute bg-image w-100' style='opacity:.6'></div>
+  <div class='row py-5 badge-info' style='opacity:.9'>
+    <div class='col-12 col-sm-6'><a class='btn'>Онлайн-заявка</a><a href='#delivery'>Доставка</a><a href='#payment'>Оплата</a><a href='#comments'>Отзывы</a><a href='#contacts'>Контакты</a></div>
+    <div class='col-12 col-sm-6'><a href='#certified'>Сертификаты</a><a href='#'>Политика конфиденциальности</a><a href='#'>Пользовательское соглашение</a><a>&copy 2020 https://мой.сайт<br>Все права защищены</a></div>
+  </div>
+</footer>
+<script type='text/javascript' charset='utf-8'>// src='demo.js'
+let bd =[
+["Маска медицинмкая лицевая с тройныи уровнем защиты",25,"шт",["mask-med-1.jpg","mask-med-2.jpg","mask-med-3.jpg"],"спанбонд - 2 наружных слоя (нетканый комфортный в применении материал, не раздражающий кожу и не препятствующий дыханию);<br>мелтблаун (внутренний фильтрующий слой маски, обеспечивающий дополнительную фильтрацию воздуха).<br>Минимальная партия 50 штук.<br>Есть продажа оптом."],
+["Маска дизайнерская многоразовая черная",150,"шт",["mask-dark-6.jpg","mask-dark-1.jpg","mask-dark-2.jpg","mask-dark-3.jpg","mask-dark-4.jpg","mask-dark-5.jpg"],"Возможно нанесение любого принта на изделие (по желанию)."],
+["Маска дизайнерская многоразовая цветная",150,"шт",["mask-color-1.jpg","mask-color-3.jpg"],"Возможно нанесение любого принта на изделие (по желанию)."],
+["Маска дизайнерская многоразовая разноцветная",150,"шт",["mask-repeat-1.jpg"],"Возможно нанесение любого принта на изделие (по желанию)."],
+["Маска дизайнерская многоразовая",150,"шт",["no-file.jpg"],"Возможно нанесение любого принта на изделие (по желанию)."],
+["Маска дизайнерская многоразовая",150,"шт",["no-file.jpg"],"Возможно нанесение любого принта на изделие (по желанию)."],
+["Маска дизайнерская многоразовая",150,"шт",["no-file.jpg"],"Возможно нанесение любого принта на изделие (по желанию)."],
+["Маска дизайнерская многоразовая",150,"шт",["no-file.jpg"],"Возможно нанесение любого принта на изделие (по желанию)."],
+["Маска дизайнерская многоразовая",150,"шт",["no-file.jpg"],"Возможно нанесение любого принта на изделие (по желанию)."],
+["Маска дизайнерская многоразовая",150,"шт",["no-file.jpg"],"Возможно нанесение любого принта на изделие (по желанию)."],
+["Резинка для производства медицинских масок от производителя",3.50,"метр",["rubber-3-white-1.jpg","rubber-3-white-2.jpg","rubber-3-color-1.jpg","rubber-3-color-2.webp","rubber-3-white-3.webp"],"Диаметр 3 мм<br>Различные цвета"],
+["Резинка для производства медицинских масок от производителя",3.30,"метр",["rubber-color-1.webp","rubber-1.jpg","rubber-2.jpg","rubber-3.jpg"],"Диаметр 2,5 мм<br>Различные цвета"],
+["Резинка для производства медицинских масок от производителя",3500,"кг",["rubber-5.png","rubber-3-color-1.jpg","rubber-3-color-2.webp","rubber-color-1.webp"],"Оптом 1 кг<br>Различные цвета"],
+["Нитка-резинка спандекс в производственных намотках",1100,"кг",["thread-1.webp","thread-2.webp"],"Состав: нить латексная в оплетке х/б.<br>Диаметр 1 мм и 1,2 мм<br>В наличии цвета: белый и черный.<br>Подойдет для производства масок, бахил и шапочек.<br>Одна бобина порядка 0,8 кг — по цене 880 руб."],
+["Нитка-резинка спандекс в производственных намотках",0.70,"метр",["thread-2.webp","thread-1.webp"],"Состав: нить латексная в оплетке х/б.<br>Диаметр 1 мм и 1,2 мм<br>В наличии цвета: белый и черный.<br>Подойдет для производства масок, бахил и шапочек.<br>В 1 кг 1600 м"]
+]
+//  style='width:250px' overflow-hidden
+catalog.innerHTML = bd.reduce((s,ar,i)=> `${s}<div class='col-12 col-sm-6 col-lg-4 p-2'><div class='card px-0'><a href='#${i}' class='card-link'><img class='card-img-top' src='./img/${ar[3][0]}'><big>${ar[0]}</big></a><div class='card-header mt-2 p-1'>${ar[4]}</div><div class='card-body p-1'><big class='font-weight-bold'>${ar[1]}</big> <i class='fa fa-ruble-sign mr-5'></i>за 1 ${ar[2]}</div><div class='card-footer'><button class='float-left btn btn-success'>КУПИТЬ</button><button class='float-right btn btn-lg btn-warning'><i class="fa fa-shopping-cart"></i></button></div></div></div>`,`<h2 class='col-12 p-4'>Каталог продукции</h2>`)
+for(let el of document.querySelectorAll('#catalog img')){ el.style.height = el.offsetWidth }
+comments.innerHTML = [['male','Антон, 11.05.2020','Заказал в первую очередь потому что маска стильная ;) Ну а во вторую, потому что сейчас время такое что без нее никуда.'],['male','Владимир, 09.05.2020','Всё четко. За курьера особая благодарность! Супер сервис. С днем Победы!'],['female','Eлена, 05.05.2020','Привет Всем! Заказ с интернет магазина получила быстро. Спасибо за работу и оперативность.'],['male','Геннадий, 04.05.2020','Работаю водителем маршрутки, купил для защиты так как целый день возишь огромное количество людей, маска удобна тем что она многоразовая, после рабочего дня можно промыть, а не покупать опять одноразовые.']].reduce((sum,el)=> sum+`<div class='col-12 col-md-6 col-xl-3 p-3'><div class='p-3 border'><div><i class='mr-2 mb-2 fa fa-${el[0]} fa-2x'></i>${el[1]}</div><div>${el[2]}</div></div></div>`,`<h2 class='col-12 p-4'>Отзывы о нас</h2>`);
+for(let el of document.querySelectorAll('footer a')){ el.classList.add('d-block','mt-2','text-light') }
+let F ={
+  write:(arr)=> sessionStorage.cart = JSON.stringify(arr),
+  add:(id,price)=>{
+    let arr; if(sessionStorage.cart){
+      arr = JSON.parse(sessionStorage.cart);
+      let rep = arr.findIndex(el => el[0] == id);
+      (rep > -1) ? arr[rep][1] += 1 : arr.unshift([id,1,price]);
+    }
+    else arr = [[id,1,price]];
+    F.write(arr);
+  },
+  btn:(b)=>{ b.classList.add('pulsate','duration-1000'); setTimeout(()=> b.classList.remove('pulsate'),1000) },
+  script:(src)=>{
+    if(F[src]) return F[src]();
+    let s = document.createElement('script');
+    s.type = 'text/javascript';
+    // s.async = true;
+    s.src = src+'.js';
+    document.body.appendChild(s);
+    // let fun =()=> setTimeout(()=> (F[src]) ? F[src]() : fun(),10); fun()
+  },
+  bid:()=>{
+    modal.innerHTML = `<div id='win2' class='fixed-top h-100 m-5 row border rounded bg-light overflow-auto'></div>`;
+    F.script('form'); F.close =()=> modal.innerHTML = ''; F.backward =()=> modal.innerHTML = '';
+  }
+}
+window.onload =()=>{
+
+(()=>{
+  let head = document.querySelector('header').cloneNode(true), foot = document.querySelector('footer');
+  foot.children[0].style.height = foot.offsetHeight;
+  head.classList.add('fixed-top');
+  document.body.children[1].appendChild(head);
+  // document.body.insertBefore(head, home);
+  for(let el of document.querySelectorAll('a[href]')){
+    el.onclick =()=> head.classList.add('d-none') + setTimeout(()=> head.classList.remove('d-none'),3000)
+  }
+  head.children[6].onclick =()=>{
+    if(!sessionStorage.cart) return alert('Корзина товаров пуста');
+    F.script('cart');
+  }
+})();
+if(sessionStorage.cart) document.querySelectorAll('header .fa-shopping-cart')[1].className = 'fa fa-cart-plus fa-lg text-danger';
+for(let el of document.querySelectorAll('#catalog .card')){
+  let a = el.children[0], id = +a.hash.slice(1), btn = el.getElementsByTagName('button');
+  a.onclick =()=>{
+    let arr = bd[id][3], len = arr.length-1;
+    if(len < 1) return;
+    modal.innerHTML = `<div class='fixed-top bg-white unfold duration-500'><img class='vh-100 img-fluid img-thumbnail'></div><div class='fixed-top'></div>`;
+    let i, img = modal.children[0].children[0], slide =(n)=>{ i = n; img.src = './img/'+arr[i] }
+    slide(0);
+    setTimeout(()=>{
+      modal.children[1].innerHTML = `<div class='position-absolute w-100'><i class='fa fa-window-close close p-2 fs-10'></i></div><div class='d-flex justify-content-between align-items-center vh-100'><i class='fa fa-chevron-circle-left fs-10'></i><i class='fa fa-chevron-circle-right fs-10'></i></div>`;
+      let icon = document.querySelectorAll('#modal i')
+      icon[0].onclick =()=>{
+        modal.children[1].textContent = ''; modal.children[0].classList.replace('unfold','fold');
+        setTimeout(()=> modal.innerHTML = '',500)
+      };
+      icon[1].onclick =()=> slide(((i === 0) ? len : i-1));
+      icon[2].onclick =()=> slide(((len == i) ? 0 : i+1))
+    },500)
+  }
+  btn[0].onclick = function(){
+    F.add(id,+el.getElementsByClassName('font-weight-bold')[0].textContent)
+    F.script('cart');
+  }
+  btn[1].onclick = function(){
+    F.btn(this); let carts = document.querySelectorAll('header .fa-shopping-cart'), icon;
+    if(carts.length == 2){
+      icon = carts[1]; icon.className = 'fa fa-cart-plus fa-lg text-danger';
+    }
+    else icon = document.querySelector('header .fa-cart-plus')
+    icon.classList.add('flip','duration-2000')
+    setTimeout(()=> icon.classList.add('fa-3x'),300)
+    setTimeout(()=> icon.classList.remove('fa-3x'),1300)
+    setTimeout(()=> icon.classList.remove('flip'),2000)
+    F.add(id,+el.getElementsByClassName('font-weight-bold')[0].textContent)
+  }
+}
+document.querySelector('#contacts .btn').onclick = F.bid
+document.querySelector('footer .btn').onclick = F.bid
+
+};
+</script></body></html>
