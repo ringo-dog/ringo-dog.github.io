@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>	
+<head>
+<script src="https://www.youtube.com/iframe_api"></script> <!-- Здесь цепляем кода iframe_api-->
+</head>
+<body>	   
+<div class="panel">
+<button id="back" onclick="player.previousVideo();">Back</button>
+<button id="play" onclick="player.playVideo();">Play</button>
+<button id="pause" onclick="player.pauseVideo();">Pause</button>
+<button id="next" onclick="player.nextVideo();">Next</button>
+<div id="time">00:00</div>		
+<div id="line" onclick="progress (event);">
+<div class="viewed"></div>
+<div id="fader" onclick="alert('fader');"></div>
+</div>
+<button id="volume" onclick="editVolume ();">Громкость</button>
+<div id="quality">Auto</div>
+<button id="full" onclick="playFullscreen ();">FullScreen</button>
+</div>		
+<div>
+<button id="playlist" onclick="loadPlaylistVideoIds();">Load New Playlist</button>
+<button id="qual" onclick="editQuality ();">Сменить качество на 480</button>
+</div>
+</body>	
+</html>
