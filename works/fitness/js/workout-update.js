@@ -55,7 +55,7 @@ else{
 }
 let select=T[2].querySelector('select');
 db('workout-name',(names)=>db('workout',(obj)=>{
-  select.innerHTML=Object.values(obj).reduce((str,ar,i)=>str+ar.reduce((s,id)=>`${s}<option value='${id}' class='h4'>${drill[id]}</option>`,`<optgroup label='${names[i]}'>`)+'</optgroup>'},select.innerHTML)
+  select.innerHTML=Object.values(obj).reduce((str,ar,i)=>str+ar.reduce((s,id)=>`${s}<option value='${id}' class='h4'>${drill[id]}</option>`,`<optgroup label='${names[i]}'>`)+'</optgroup>',select.innerHTML)
 }))
 // db('workout-name',(names)=>{
 //   let arr=['chest','leg','shoulder','loin','press','arm','back','neck','cheek']
