@@ -72,4 +72,4 @@ T[0].querySelectorAll('td[class]').forEach((tr,i)=>tr.addEventListener('click',(
   pages[i]();playVisible.off();noneRemove(main);noneRemove(T[1]);noneAdd(T[2]);noneAdd(T[3])
 }))
 if(!localStorage.workoutMain)localStorage.workoutMain='[]'
-if(window.speechSynthesis)alert('Синтезатор речи поддерживается');else alert('Синтезатор речи не поддерживается')
+// if(window.speechSynthesis)alert('Синтезатор речи поддерживается');else alert('Синтезатор речи не поддерживается')
