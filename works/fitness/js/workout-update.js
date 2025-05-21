@@ -26,7 +26,7 @@ clicks=[
   (td)=>clicks[16](td,10),(td)=>clicks[16](td,15),(td)=>clicks[16](td,30),
   (td)=>clicks[15](td,10),(td)=>clicks[15](td,15),(td)=>clicks[15](td,30)
 ],
-clickTrEnd=(id,name,spans,tds)=>db('img',(links)=>{alert(id);alert(links)
+clickTrEnd=(id,name,spans,tds)=>db('img',(links)=>{
   T[3].innerHTML=`<tr><th colspan='4'>${name}</th></tr>${[['Повторений',inBtn('secondary','-'),spans[0].textContent,inBtn('secondary','+')],['Время',inBtns('-'),spans[1].textContent,inBtns('+')],['Отдых',inBtns('-'),spans[2].textContent,inBtns('+')]].reduce(inTrArr,'')}<tr><td colspan='4' class='p-0'><img src='${links[id]}' style='width:100vw'/></td></tr>`
   links=null;tds=T[3].querySelectorAll('td:nth-child(3)');
   T[3].querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>clicks[i](tds))
@@ -87,7 +87,7 @@ function clickCaption(){
   // main.firstChild.addEventListener('click',(e)=>{if(e.target===main.querySelector('a')){span.textContent=td.textContent;allTime()}},{once:true})
 }
 function clickTr(){
-  clickTrEnd(this.dataset,this.children[1].firstChild.textContent,this.querySelectorAll('span'))
+  clickTrEnd(this.dataset.id,this.children[1].firstChild.textContent,this.querySelectorAll('span'))
   noneAdd(T[2]);noneRemove(T[3])
 }
 
