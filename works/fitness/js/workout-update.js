@@ -59,7 +59,8 @@ db('workout-name',(names)=>{
 // select.addEventListener('focus',()=>,{once:true})
 select.onchange=()=>db('workout',(obj)=>{
   let arr=obj[select.value].map(id=>[drill[id],id]).sort()
-  select.insertAdjacentHTML('beforebegin',`<select size='${arr.length}' class='fixed-top h-100'>${arr.reduce((str,ar)=>`${str}<option value='${ar[1]}' class='h5'>${ar[0]}</option>`,'<option class="h4 text-center badge-dark">Добавить</option>')}</select>`)
+  select.insertAdjacentHTML('beforebegin',`<select size='${arr.length}' class='fixed-top'>${arr.reduce((str,ar)=>`${str}<option value='${ar[1]}' class='h5'>${ar[0]}</option>`,'<option class="h4 text-center badge-dark">Добавить</option>')}</select>`)
+  // h-100
   select.previousSibling.onchange=change
 })
 T[2].querySelectorAll('caption.d-flex').forEach(el=>el.onclick=clickCaption)
