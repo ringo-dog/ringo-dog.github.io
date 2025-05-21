@@ -26,6 +26,15 @@ clicks=[
   (td)=>clicks[16](td,10),(td)=>clicks[16](td,15),(td)=>clicks[16](td,30),
   (td)=>clicks[15](td,10),(td)=>clicks[15](td,15),(td)=>clicks[15](td,30)
 ],
+clickTrEnd=(id,name,spans,tds)=>db('img',(links)=>{
+  T[3].innerHTML=`<tr><th colspan='4'>${name}</th></tr>${[['Повторений',inBtn('secondary','-'),spans[0].textContent,inBtn('secondary','+')],['Время',inBtns('-'),spans[1].textContent,inBtns('+')],['Отдых',inBtns('-'),spans[2].textContent,inBtns('+')]].reduce(inTrArr,'')}<tr><td colspan='4' class='p-0'><img src='./img/drill/${+id+25}.png' style='width:100vw'/></td></tr>`
+  tds=T[3].querySelectorAll('td:nth-child(3)');
+  T[3].querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>clicks[i](tds))
+  main.firstChild.onclick=(e)=>{
+    if(e.target!==main.querySelector('a'))return
+    if(tds[0].textContent==='1')tds[2].textContent='00:00';for(let i=0;i<3;i++)spans[i].textContent=tds[i].textContent;allTime()
+  }
+},
 inBtns=(a)=>[10,15,30].reduce((str,t)=>str+inBtn('secondary',a+t),`<div class='btn-group btn-group-vertical'>`)+'</div>',
 numbers=()=>T[2].querySelectorAll('td:first-child').forEach((td,i)=>td.textContent=i+1),
 start=(arr)=>{
@@ -78,15 +87,8 @@ function clickCaption(){
   // main.firstChild.addEventListener('click',(e)=>{if(e.target===main.querySelector('a')){span.textContent=td.textContent;allTime()}},{once:true})
 }
 function clickTr(){
-  noneAdd(T[2]);let id=this.dataset.id,name=this.children[1].firstChild.textContent,spans=this.querySelectorAll('span'),tds;
-  T[3].innerHTML=`<tr><th colspan='4'>${name}</th></tr>${[['Повторений',inBtn('secondary','-'),spans[0].textContent,inBtn('secondary','+')],['Время',inBtns('-'),spans[1].textContent,inBtns('+')],['Отдых',inBtns('-'),spans[2].textContent,inBtns('+')]].reduce(inTrArr,'')}<tr><td colspan='4' class='p-0'><img src='./img/drill/${+id+25}.png' style='width:100vw'/></td></tr>`
-  // T[3].querySelectorAll('tr').forEach(tr=>tr.className='table-sm')
-  noneRemove(T[3]);tds=T[3].querySelectorAll('td:nth-child(3)');
-  T[3].querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>clicks[i](tds))
-  main.firstChild.onclick=(e)=>{
-    if(e.target!==main.querySelector('a'))return
-    if(tds[0].textContent==='1')tds[2].textContent='00:00';for(let i=0;i<3;i++)spans[i].textContent=tds[i].textContent;allTime()
-  }
+  clickTrEnd(this.dataset,this.children[1].firstChild.textContent,this.querySelectorAll('span'))
+  noneAdd(T[2]);noneRemove(T[3])
 }
 
 })
