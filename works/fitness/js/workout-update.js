@@ -61,6 +61,8 @@ select.onchange=()=>db('workout',(obj)=>{
   let arr=obj[select.value].map(id=>[drill[id],id]).sort()
   select.insertAdjacentHTML('beforebegin',`<select class='fixed-top'>${arr.reduce((str,ar)=>`${str}<option value='${ar[1]}' class='h5'>${ar[0]}</option>`,'<option class="h4 text-center badge-dark">Добавить</option>')}</select>`)
   select.previousSibling.select()
+  select.previousSibling.focus()
+  select.previousSibling.click()
   // size='${arr.length}' h-100
   select.previousSibling.onchange=change
 })
