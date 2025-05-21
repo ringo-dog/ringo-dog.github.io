@@ -34,7 +34,7 @@ clickTrEnd=(id,name,spans,tds)=>db('img',(links)=>{
     if(e.target!==main.querySelector('a'))return
     if(tds[0].textContent==='1')tds[2].textContent='00:00';for(let i=0;i<3;i++)spans[i].textContent=tds[i].textContent;allTime()
   }
-},
+}),
 inBtns=(a)=>[10,15,30].reduce((str,t)=>str+inBtn('secondary',a+t),`<div class='btn-group btn-group-vertical'>`)+'</div>',
 numbers=()=>T[2].querySelectorAll('td:first-child').forEach((td,i)=>td.textContent=i+1),
 start=(arr)=>{
