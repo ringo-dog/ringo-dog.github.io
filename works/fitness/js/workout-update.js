@@ -54,9 +54,9 @@ else{
   setTimeout(()=>select.addEventListener('change',playVisible.on,{once:true}),100)
 }
 let select=T[2].querySelector('select');
-db('workout-name',(names)=>db('workout',(obj)=>{alert(JSON.stringify(Object.values(obj))) 
+db('workout-name',(names)=>db('workout',(obj)=>{
   let arr=['chest','leg','shoulder','loin','press','arm','back','neck','cheek']
-  select.innerHTML=Object.values(obj).reduce((str,el,i)=>`${str}<option value='${arr[i]}' class='h4'>${el}</option>`,select.innerHTML)
+  select.innerHTML=Object.values(obj).reduce((str,ar,i)=>str+ar.reduce(s,id)=>`${s}<option value='${id}' class='h4'>${drill[id]}</option>`,`<optgroup label='${names[i]}'>`)+'</optgroup>'},select.innerHTML)
 }))
 // db('workout-name',(names)=>{
 //   let arr=['chest','leg','shoulder','loin','press','arm','back','neck','cheek']
