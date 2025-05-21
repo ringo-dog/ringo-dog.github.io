@@ -27,8 +27,8 @@ clicks=[
   (td)=>clicks[15](td,10),(td)=>clicks[15](td,15),(td)=>clicks[15](td,30)
 ],
 clickTrEnd=(id,name,spans,tds)=>db('img',(links)=>{
-  T[3].innerHTML=`<tr><th colspan='4'>${name}</th></tr>${[['Повторений',inBtn('secondary','-'),spans[0].textContent,inBtn('secondary','+')],['Время',inBtns('-'),spans[1].textContent,inBtns('+')],['Отдых',inBtns('-'),spans[2].textContent,inBtns('+')]].reduce(inTrArr,'')}<tr><td colspan='4' class='p-0'><img src='./img/drill/${+id+25}.png' style='width:100vw'/></td></tr>`
-  tds=T[3].querySelectorAll('td:nth-child(3)');
+  T[3].innerHTML=`<tr><th colspan='4'>${name}</th></tr>${[['Повторений',inBtn('secondary','-'),spans[0].textContent,inBtn('secondary','+')],['Время',inBtns('-'),spans[1].textContent,inBtns('+')],['Отдых',inBtns('-'),spans[2].textContent,inBtns('+')]].reduce(inTrArr,'')}<tr><td colspan='4' class='p-0'><img src='${links[id]}' style='width:100vw'/></td></tr>`
+  links=null;tds=T[3].querySelectorAll('td:nth-child(3)');
   T[3].querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>clicks[i](tds))
   main.firstChild.onclick=(e)=>{
     if(e.target!==main.querySelector('a'))return
