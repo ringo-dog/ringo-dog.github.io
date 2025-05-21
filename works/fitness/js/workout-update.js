@@ -1,3 +1,5 @@
+
+
 export default([arr_main,id])=>db('drill',(drill)=>{
   /* стрелки или перетаскивание */
   /* funPlay(caption) */
@@ -52,10 +54,14 @@ else{
   setTimeout(()=>select.addEventListener('change',playVisible.on,{once:true}),100)
 }
 let select=T[2].querySelector('select');
-db('workout-name',(names)=>{
+db('workout-name',(names)=>db('workout',(obj)=>{
   let arr=['chest','leg','shoulder','loin','press','arm','back','neck','cheek']
-  select.innerHTML=names.reduce((str,el,i)=>`${str}<option value='${arr[i]}' class='h4'>${el}</option>`,select.innerHTML)
-})
+  select.innerHTML=Object.values.reduce((str,el,i)=>`${str}<option value='${arr[i]}' class='h4'>${el}</option>`,select.innerHTML)
+}))
+// db('workout-name',(names)=>{
+//   let arr=['chest','leg','shoulder','loin','press','arm','back','neck','cheek']
+//   select.innerHTML=names.reduce((str,el,i)=>`${str}<option value='${arr[i]}' class='h4'>${el}</option>`,select.innerHTML)
+// })
 // select.addEventListener('focus',()=>,{once:true})
 select.onchange=()=>db('workout',(obj)=>{
   let arr=obj[select.value].map(id=>[drill[id],id]).sort()
