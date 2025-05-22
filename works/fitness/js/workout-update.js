@@ -57,20 +57,21 @@ let select=T[2].querySelector('select');
 db('workout-name',(names)=>db('workout',(obj)=>{
   select.innerHTML=Object.values(obj).reduce((str,ar,i)=>str+ar.reduce((s,id)=>`${s}<option value='${id}'>${drill[id]}</option>`,`<optgroup label='${names[i]}'>`)+'</optgroup>',select.innerHTML)
 }))
+select.onchange=()=>append([[select.value,select.querySelector(`[value='${select.value}']`).textContent]]))
 // db('workout-name',(names)=>{
 //   let arr=['chest','leg','shoulder','loin','press','arm','back','neck','cheek']
 //   select.innerHTML=names.reduce((str,el,i)=>`${str}<option value='${arr[i]}' class='h4'>${el}</option>`,select.innerHTML)
 // })
 // select.addEventListener('focus',()=>,{once:true})
-select.onchange=()=>db('workout',(obj)=>{
-  let arr=obj[select.value].map(id=>[drill[id],id]).sort()
-  select.insertAdjacentHTML('beforebegin',`<select class='fixed-top'>${arr.reduce((str,ar)=>`${str}<option value='${ar[1]}' class='h5'>${ar[0]}</option>`,'<option class="h4 text-center badge-dark">Добавить</option>')}</select>`)
-  select.previousSibling.select()
-  select.previousSibling.focus()
-  select.previousSibling.click()
+// select.onchange=()=>db('workout',(obj)=>{
+//   let arr=obj[select.value].map(id=>[drill[id],id]).sort()
+ //  select.insertAdjacentHTML('beforebegin',`<select class='fixed-top'>${arr.reduce((str,ar)=>`${str}<option value='${ar[1]}' class='h5'>${ar[0]}</option>`,'<option class="h4 text-center badge-dark">Добавить</option>')}</select>`)
+ //  select.previousSibling.select()
+  // select.previousSibling.focus()
+  // select.previousSibling.click()
   // size='${arr.length}' h-100
-  select.previousSibling.onchange=change
-})
+ //  select.previousSibling.onchange=change
+// })
 T[2].querySelectorAll('caption.d-flex').forEach(el=>el.onclick=clickCaption)
 T[2].querySelector('a').onclick=()=>{
   let arr=Array.from(T[2].querySelectorAll('tr')).map(tr=>{
