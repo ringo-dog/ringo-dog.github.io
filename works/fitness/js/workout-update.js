@@ -57,7 +57,7 @@ let select=T[2].querySelector('select');
 db('workout-name',(names)=>db('workout',(obj)=>{
   select.innerHTML=Object.values(obj).reduce((str,ar,i)=>str+ar.reduce((s,id)=>`${s}<option value='${id}'>${drill[id]}</option>`,`<optgroup label='${names[i]}'>`)+'</optgroup>',select.innerHTML)
 }))
-select.onchange=()=>append([[select.value,select.querySelector(`[value='${select.value}']`).textContent]]))
+select.onchange=()=>append([[select.value,select.querySelector(`[value='${select.value}']`).textContent]])
 // db('workout-name',(names)=>{
 //   let arr=['chest','leg','shoulder','loin','press','arm','back','neck','cheek']
 //   select.innerHTML=names.reduce((str,el,i)=>`${str}<option value='${arr[i]}' class='h4'>${el}</option>`,select.innerHTML)
