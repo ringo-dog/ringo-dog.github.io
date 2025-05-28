@@ -46,7 +46,7 @@ clickTrEnd=(id,name,spans,tds)=>db('img',(links)=>{/* ../X/img/drill/${+id+25}.p
   // T.insertAdjacentHTML('beforebegin',`<table id='table' class='fixed-top h-100 table table-sm table-responsive table-light text-center'><tr><th><a>назад</a></th></tr><tr><th colspan='4'>${name}</th></tr>${[['Повторений',inBtn('secondary','-'),spans[0].textContent,inBtn('secondary','+')],['Время',inBtns('-'),spans[1].textContent,inBtns('+')],['Отдых',inBtns('-'),spans[2].textContent,inBtns('+')]].reduce(inTrArr,'')}<tr><td colspan='4' class='p-0'><img src='${links[id]}' style='width:100vw'/></td></tr></table>`)
   T.insertAdjacentHTML('beforebegin',`<table id='table' class='fixed-top h-100 table table-sm table-responsive table-light text-center'><tr><th colspan='4'>${name}</th></tr>${[['Повторений',inBtn('secondary','-'),spans[0].textContent,inBtn('secondary','+')],['Время',inBtns('-'),spans[1].textContent,inBtns('+')],['Отдых',inBtns('-'),spans[2].textContent,inBtns('+')]].reduce(inTrArr,'')}<tr><td colspan='4' class='p-0'><img src='${links[id]}' style='width:100vw'/></td></tr></table>`)
   links=null;tds=table.querySelectorAll('td:nth-child(3)');
-  history.replaceState(null,null,'#')
+  history.pushState(null,null,'#a')
   table.querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>clicks[i](tds))
   // table.querySelector('a').onclick=()=>{
   //   if(tds[0].textContent==='1')tds[2].textContent='00:00';for(let i=0;i<3;i++)spans[i].textContent=tds[i].textContent
