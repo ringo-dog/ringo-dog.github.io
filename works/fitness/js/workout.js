@@ -54,6 +54,7 @@ clickTrEnd=(id,name,spans,tds)=>db('img',(links)=>{/* ../X/img/drill/${+id+25}.p
   window.addEventListener('popstate',()=>{
     if(tds[0].textContent==='1')tds[2].textContent='00:00';for(let i=0;i<3;i++)spans[i].textContent=tds[i].textContent
     table.remove();allTime()
+    alert(location.pathname)
     return false
   },{once:true})
 }),
