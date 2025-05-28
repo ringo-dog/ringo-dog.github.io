@@ -62,4 +62,5 @@ code,kbd,pre,samp{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation M
 ::-webkit-scrollbar{width:0}
 .h-100-2r{height:calc(100% - 2rem)}
 .h-2r{height:2rem}
+.img-play{width:100vw;;height:calc(100vh - 11rem)}
 /* .vh-50{height:75vh} */
