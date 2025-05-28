@@ -1,7 +1,7 @@
 import{T,db,inSec,inTime}from'./function.js'
 export default()=>db('img',(links)=>{
 /* img меньше высота или весь экран */
-T.insertAdjacentHTML('beforebegin',`<table id='table' class='fixed-top h-100 table table-responsive table-dark text-center overflow-hidden'><tr><th id='title' colspan='3'></th></tr><tr><td colspan='3' class='p-0'><img class='img-play'/></td></tr><tr><td id='timer' colspan='3' class='h2 p-3'></td></tr><tr><td colspan='3' class='p-0'><img class='img-play'/></td></tr><tr><td class='shadow-sm'><a>Назад</a></td><td class='shadow-sm'><a>Пауза</a></td><td class='shadow-sm'><a>Дальше</a></td></tr></table>`)
+T.insertAdjacentHTML('beforebegin',`<table id='table' class='fixed-top h-100 table table-responsive table-dark text-center overflow-hidden'><tr><th id='title' colspan='3'></th></tr><tr><td colspan='3' class='p-0'><img class='vw-100'/></td></tr><tr><td id='timer' colspan='3' class='h2 p-3'></td></tr><tr><td colspan='3' class='p-0'><img class='vw-100'/></td></tr><tr><td class='shadow-sm'><a>Назад</a></td><td class='shadow-sm'><a>Пауза</a></td><td class='shadow-sm'><a>Дальше</a></td></tr></table>`)
 let next,ar,interval,time,
 arr=Array.from(T.querySelectorAll('tr')).map(tr=>Array.from(tr.querySelectorAll('span')).map(el=>el.textContent).concat(tr.children[1].firstChild.textContent,links[tr.dataset.id])),
 imgs=table.querySelectorAll('img'),
