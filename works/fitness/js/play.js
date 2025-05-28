@@ -39,5 +39,5 @@ links=null
 utterance.lang='ru';utterance.volume=0.8;utterance.rate=0.8;utterance.pitch=0.8;
 // synthVoice=(text)=>alert(text);funImg=()=>imgs[1].src=`../X/img/drill/${+ar[4]+25}.png`
 ar=arr.shift();route();pause=pauses.shift();funImg()
-
+table.requestFullscreen()
 })
