@@ -1,11 +1,10 @@
 import{T,JS,db,inSec,inTime}from'./function.js'
-// import{default as module}from'./workout-update.js'
+
 let arr_main,
 inBtn=(c,t)=>`<button class='btn btn-sm btn-${c}'>${t}</button>`,
 inTd=(a,b)=>`${a}<td>${b}</td>`,
 inTr=(ar)=>ar.reduce(inTd,'<tr>')+'</tr>',
 inTrArr=(str,ar)=>str+inTr(ar),
-// tableClass=(a,b)=>{T.classList[a]('table-sm','table-responsive');T.classList[b]('h3','text-center')},
 tableClass=['h3 text-center','table-sm table-responsive'].map(t=>()=>T.className=`table h-100 m-0 ${t}`),
 page1=()=>db('workout-main',(arr)=>{
   T.innerHTML=arr.map(ar=>ar[0].slice(0,2)).concat([['Добавить','']]).reduce(inTrArr,'')
@@ -14,10 +13,6 @@ page1=()=>db('workout-main',(arr)=>{
   tableClass[0]();arr_main=arr
 }),
 page2=(id)=>db('drill',(drill)=>{
-  /* стрелки или перетаскивание */
-  /* funPlay(caption) */
-  /* отдельно отдых между упражнениями */
-  /* localstorage.last... */
 let
 allTime=()=>{
   let sum=0,list=T.querySelectorAll('span'),size=list.length-2;
@@ -42,21 +37,14 @@ clicks=[
   (td)=>clicks[16](td,10),(td)=>clicks[16](td,15),(td)=>clicks[16](td,30),
   (td)=>clicks[15](td,10),(td)=>clicks[15](td,15),(td)=>clicks[15](td,30)
 ],
-clickTrEnd=(id,name,spans,tds)=>db('img',(links)=>{/* ../X/img/drill/${+id+25}.png */
-  // T.insertAdjacentHTML('beforebegin',`<table id='table' class='fixed-top h-100 table table-sm table-responsive table-light text-center'><tr><th><a>назад</a></th></tr><tr><th colspan='4'>${name}</th></tr>${[['Повторений',inBtn('secondary','-'),spans[0].textContent,inBtn('secondary','+')],['Время',inBtns('-'),spans[1].textContent,inBtns('+')],['Отдых',inBtns('-'),spans[2].textContent,inBtns('+')]].reduce(inTrArr,'')}<tr><td colspan='4' class='p-0'><img src='${links[id]}' style='width:100vw'/></td></tr></table>`)
+clickTr=(id,name,spans,tds)=>db('img',(links)=>{
   T.insertAdjacentHTML('beforebegin',`<table id='table' class='fixed-top h-100 table table-sm table-responsive table-light text-center'><tr><th colspan='4'>${name}</th></tr>${[['Повторений',inBtn('secondary','-'),spans[0].textContent,inBtn('secondary','+')],['Время',inBtns('-'),spans[1].textContent,inBtns('+')],['Отдых',inBtns('-'),spans[2].textContent,inBtns('+')]].reduce(inTrArr,'')}<tr><td colspan='4' class='p-0'><img src='${links[id]}' style='width:100vw'/></td></tr></table>`)
   links=null;tds=table.querySelectorAll('td:nth-child(3)');
   history.pushState(null,null,'#')
   table.querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>clicks[i](tds))
-  // table.querySelector('a').onclick=()=>{
-  //   if(tds[0].textContent==='1')tds[2].textContent='00:00';for(let i=0;i<3;i++)spans[i].textContent=tds[i].textContent
-  //   table.remove();allTime()
-  // }
   window.addEventListener('popstate',()=>{
     if(tds[0].textContent==='1')tds[2].textContent='00:00';for(let i=0;i<3;i++)spans[i].textContent=tds[i].textContent
     table.remove();allTime()
-    alert(location.pathname)
-    return false
   },{once:true})
 }),
 inBtns=(a)=>[10,15,30].reduce((str,t)=>str+inBtn('secondary',a+t),`<div class='btn-group btn-group-vertical'>`)+'</div>',
@@ -71,7 +59,7 @@ if(typeof id==='number'){
   T.querySelectorAll('tr').forEach((tr,id)=>tr.querySelectorAll('span').forEach((span,i)=>span.textContent=ar[id][i+1]));
   allTime()
 }
-else{/* save тоже не показывать */
+else{
   let playVisible=['add','remove'].map(key=>()=>T.querySelector('a:nth-child(2)').classList[key]('invisible'))
   start(['01:00','01:00','01:00',`Тренировка № ${arr_main.length+1}`]);playVisible[0]()
   setTimeout(()=>select.addEventListener('change',playVisible[1],{once:true}),100)
@@ -100,7 +88,22 @@ function clickCaption(){
   td=table.querySelector('td:nth-child(2)');table.querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>clicks[i+17](td))
   table.querySelector('a').onclick=()=>{span.textContent=td.textContent;table.remove();allTime()}
 }
-function clickTr(){clickTrEnd(this.dataset.id,this.children[1].firstChild.textContent,this.querySelectorAll('span'))}
+let x=[0,0],y=[0,0],
+touch=(tr)=>{
+  x[2]=x[1]-x[0];y[2]=y[1]-y[0];
+  if(x[2]+y[2]===0)return clickTr(tr.dataset.id,tr.children[1].firstChild.textContent,tr.querySelectorAll('span'))
+  if(Math.abs(x[2])>Math.abs(y[2])){tr.remove();allTime()}
+  else{if(y[2]>0){tr.nextElementSibling.after(tr)}else{tr.previousElementSibling.before(tr)}}
+  numbers()
+}
+T.addEventListener('touchstart',(e)=>{
+  let tr=e.target.closest('tr');if(!tr)return
+  x[0]=e.changedTouches[0].screenX;y[0]=e.changedTouches[0].screenY
+})
+T.addEventListener('touchend',(e)=>{
+  let tr=e.target.closest('tr');if(!tr)return
+  x[1]=e.changedTouches[0].screenX;y[1]=e.changedTouches[0].screenY;touch(tr)
+})
 
 })
 page1()
