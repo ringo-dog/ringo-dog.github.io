@@ -4,7 +4,7 @@ let select_str,
 clicks=[,
   (tr)=>db('img',(links)=>{
     T.insertAdjacentHTML('beforebegin',`<table class='fixed-top h-100 table table-light text-center'><tr><th>${tr.textContent}</th></tr><tr><td class='px-0'><img src='${links[+tr.dataset.id]}' style='width:100vw'/></td></tr></table>`)
-    back(()=>T.previousElementSibling.remove())
+    back(2,()=>T.previousElementSibling.remove())
   }),
   (tr,arr,id)=>{none.add(tr);arr[id][1].push([+tr.dataset.id,1,'00:00','00:00']);localStorage.workoutMain=JSON.stringify(arr)}
 ],
@@ -25,7 +25,7 @@ page2=(name,index)=>db('drill',(arr)=>db('workout',(obj)=>{
     table.querySelector('.btn').classList.remove('active');let id=+select.value;clicks[0]=(tr)=>clicks[2](tr,arr,id)
   })
   table.querySelectorAll('tr[data-id]').forEach(tr=>tr.onclick=()=>clicks[0](tr))
-  back(()=>T.previousElementSibling.remove())
+  back(1,()=>T.previousElementSibling.remove())
 }))
 db('workout-main',(arr)=>{
   select_str=arr.reduce((str,[[name]],i)=>`${str}<option value='${i}'>${name}</option>`,`<caption class='pt-0 input-group'><div class='w-50 input-group-prepend'>${inBtn('outline-secondary w-100 active','Посмотреть')}</div><select id='select' class='custom-select'><option selected disabled>Добавить в тренировку</option>`)+'</select></caption>';page1()
