@@ -25,7 +25,7 @@ page2=(name,index)=>db('drill',(arr)=>db('workout',(obj)=>{
     table.querySelector('.btn').classList.remove('active');let id=+select.value;clicks[0]=(tr)=>clicks[2](tr,arr,id)
   })
   table.querySelectorAll('tr[data-id]').forEach(tr=>tr.onclick=()=>clicks[0](tr))
-//  back(1,()=>T.previousElementSibling.remove())
+  back(1,()=>T.previousElementSibling.remove())
 }))
 db('workout-main',(arr)=>{
   select_str=arr.reduce((str,[[name]],i)=>`${str}<option value='${i}'>${name}</option>`,`<caption class='pt-0 input-group'><div class='w-50 input-group-prepend'>${inBtn('outline-secondary w-100 active','Посмотреть')}</div><select id='select' class='custom-select'><option selected disabled>Добавить в тренировку</option>`)+'</select></caption>';page1()
