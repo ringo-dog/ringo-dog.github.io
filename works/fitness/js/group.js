@@ -3,13 +3,12 @@ import{T,back,db,inBtn,none}from'./function.js'
 let select_str,
 clicks=[,
   (tr)=>db('img',(links)=>{
-    T.insertAdjacentHTML('beforebegin',`<table class='fixed-top h-100 table table-light text-center'><tr><th>${tr.textContent}</th></tr><tr><td class='px-0'><img src='${links[+tr.dataset.id]}' style='width:100vw'/></td></tr></table>`)
+    T.insertAdjacentHTML('beforebegin',`<table class='fixed-top h-100 table table-responsive table-light text-center'><tr><th>${tr.textContent}</th></tr><tr><td class='px-0'><img src='${links[+tr.dataset.id]}' style='width:100vw'/></td></tr></table>`)
     //back(2,()=>T.previousElementSibling.remove())
     history.pushState(null,null,'#2')
   }),
   (tr,arr,id)=>{none.add(tr);arr[id][1].push([+tr.dataset.id,1,'00:00','00:00']);localStorage.workoutMain=JSON.stringify(arr)}
 ],
-funBack=()=>back(1,()=>table.remove()),
 tdOne=(a,b)=>`${a}<tr><td>${b}</td></tr>`,
 tdOneId=(a,ar)=>`${a}<tr data-id='${ar[0]}'><td>${ar[1]}</td></tr>`,
 page1=()=>db('workout-name',(arr)=>{
