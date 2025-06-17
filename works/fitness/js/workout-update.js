@@ -104,7 +104,7 @@ clickHead=[
     let end=()=>{alert(`Сохранена тренировка:\n${arr[0][0]}`);for(let i=0;i<2;i++)tr_click.children[i].innerText=arr[0][i]},
     arr=save();funSave(arr,end)
   },
-  ()=>JS('play',()=>JS('calendar-update',[save(),(arr,obj)=>obj.date[Date.now()]=arr])),
+  ()=>JS('play',(end)=>JS('calendar-update',[save(),(arr,obj)=>obj.date[Date.now()]=arr],end)),
   ()=>funTrash(()=>{history.back();tr_click.remove()})
 ],
 save=()=>{
