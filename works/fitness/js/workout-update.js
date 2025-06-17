@@ -8,11 +8,10 @@ page1=()=>{
   table.innerHTML=arr.reduce(inTrArr,'')
   table.querySelectorAll('tr').forEach((tr,i)=>tr.onclick=()=>{funClick(i,page2);tr_click=tr})
 },
-page2=(ar,index)=>db('drill',(drill)=>{
+page2=(ar,index)=>{
   [
     ()=>{
-      start(ar[0]);ar=[drill,ar[1]];
-      append[0](ar[1].map(([id])=>[id,ar[0][id]]).reduce((str,ar)=>str+append[1](ar),''));ar=ar[1];
+      start(ar[0]);ar=ar[1];append[0](ar.reduce((str,[id])=>str+append[1](id),''));
       tbody.querySelectorAll('tr').forEach((tr,id)=>tr.querySelectorAll('span').forEach((span,i)=>span.textContent=ar[id][i+1]))
       allTime()
     },
@@ -24,9 +23,9 @@ page2=(ar,index)=>db('drill',(drill)=>{
   T.querySelectorAll('a').forEach((a,i)=>a.onclick=clickHead[i])
   T.querySelector('input').oninput=function(){if(this.value.length>30)this.value=this.value.slice(0,30)}
   T.querySelectorAll('.d-flex:nth-child(1n+2)').forEach(el=>el.onclick=clickCaption)
-  select.onchange=()=>append[0](append[1]([select.value,select.querySelector(`[value='${select.value}']`).textContent]))
+  select.onchange=()=>append[0](append[1](select.value))
   pushState(2)
-}),
+},
 allTime=()=>{
   let sum=0,list=T.querySelectorAll('span'),size=list.length;
   for(let i=1;i<4;i++)sum+=inSec(list[i])
@@ -37,7 +36,7 @@ allTime=()=>{
 },
 append=[
   (str)=>{tbody.innerHTML+=str;numbers();tbody.querySelectorAll('tr').forEach(tr=>tr.onclick=clickTr)},
-  (ar)=>`<tr data-id='${ar[0]}'><td class='small shadow table-secondary'></td><td class='shadow-sm'>${ar[1]}<div style='min-width:75vw' class='d-flex justify-content-around'><span class='badge badge-warning'>1</span><span class='badge badge-success'>00:00</span><span class='badge badge-danger'>00:00</span></div></td></tr>`
+  (id)=>`<tr data-id='${id}'><td class='small shadow table-secondary'></td><td class='shadow-sm'>${select.querySelector(`[value='${id}']`).textContent}<div style='min-width:75vw' class='d-flex justify-content-around'><span class='badge badge-warning'>1</span><span class='badge badge-success'>00:00</span><span class='badge badge-danger'>00:00</span></div></td></tr>`
 ],
 clickCaption=function(){
   let[n,span,td]=this.children;
@@ -116,8 +115,8 @@ save=()=>{
   title.unshift(T.querySelector('input').value);return[title,arr]
 }
 ;page1()
-db('workout-name',(names)=>db('workout',(obj)=>{
+db('workout-name',(names)=>db('workout',(obj)=>db('drill',(drill)=>{
   select_str=Object.values(obj).reduce((str,ar,i)=>str+ar.reduce((s,id)=>`${s}<option value='${id}'>${drill[id]}</option>`,`<optgroup label='${names[i]}'>`)+'</optgroup>','<option selected disabled>Выбрать</option>')
-}))
+})))
 
 }
