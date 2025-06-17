@@ -24,10 +24,6 @@ page2=(ar,index)=>db('drill',(drill)=>{
   T.querySelectorAll('a').forEach((a,i)=>a.onclick=clickHead[i])
   T.querySelector('input').oninput=function(){if(this.value.length>30)this.value=this.value.slice(0,30)}
   T.querySelectorAll('.d-flex:nth-child(1n+2)').forEach(el=>el.onclick=clickCaption)
-  if(!select_str)select.addEventListener('click',()=>db('workout-name',(names)=>db('workout',(obj)=>{
-    select_str=Object.values(obj).reduce((str,ar,i)=>str+ar.reduce((s,id)=>`${s}<option value='${id}'>${drill[id]}</option>`,`<optgroup label='${names[i]}'>`)+'</optgroup>','<option selected disabled>Выбрать</option>')
-    select.innerHTML=select_str
-  })),{once:true})
   select.onchange=()=>append[0](append[1]([select.value,select.querySelector(`[value='${select.value}']`).textContent]))
   pushState(2)
 }),
@@ -120,5 +116,8 @@ save=()=>{
   title.unshift(T.querySelector('input').value);return[title,arr]
 }
 ;page1()
+db('workout-name',(names)=>db('workout',(obj)=>{
+  select_str=Object.values(obj).reduce((str,ar,i)=>str+ar.reduce((s,id)=>`${s}<option value='${id}'>${drill[id]}</option>`,`<optgroup label='${names[i]}'>`)+'</optgroup>','<option selected disabled>Выбрать</option>')
+}))
 
 }
