@@ -1,4 +1,4 @@
-import{T,beforebegin,db,inBtn,none,pushState,windowBack}from'./function.js'
+import{T,JS,beforebegin,db,inBtn,none,pushState,windowBack}from'./function.js'
 
 let select_str,
 clicks=[,
