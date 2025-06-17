@@ -37,12 +37,7 @@ work=[
 [()=>alert('Пауза'),()=>next()].forEach((fun,i)=>T3.querySelectorAll('a')[i].parentNode.onclick=fun)
 arr.forEach(ar=>ar[4]=links[ar[4]]);links=links[0]
 utterance.lang='ru';utterance.volume=1;utterance.rate=1.2;utterance.pitch=0.4;
-// synthVoice=(text)=>alert(text);funImg=()=>imgs[1].src=`../X/img/drill/${+ar[4]+25}.png`
 ar=arr.shift();route();pause=pauses.shift();funImg()
 window.addEventListener('popstate',clear,{once:true})
-// work=()=>{
-//   imgs[0].src=imgs[1].src;show([ar[3],ar[1],1,0]);ar[0]--;
-//   if(ar[0]===0){ar=arr.shift();if(!ar){next=end;imgs[1].src=links}else{next=route;funImg()}}else{next=rest[0];funImg()}
-// };
 
 })
