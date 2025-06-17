@@ -10,7 +10,7 @@ pause=pauses.shift(),
 utterance=new SpeechSynthesisUtterance(),
 clear=()=>clearInterval(interval),
 end=()=>{
-  let fun=()=>{funEnd();synthVoice('Тренировка закончена');history.back()};
+  let fun=()=>funEnd(()=>{synthVoice('Тренировка закончена');history.back()})
   pause=pauses.shift();if(pause[1]==='00:00'){fun()}else{rest[2](pause);next=fun}
 },
 funImg=()=>imgs[1].src=ar[4],
