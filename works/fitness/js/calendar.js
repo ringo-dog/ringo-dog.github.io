@@ -7,11 +7,14 @@ clicks=[
   ()=>{let ar=clicks[2]();if(ar[0]===0){ar=[11,--ar[1]]}else{ar[0]--}show(ar)},
   ()=>{let ar=clicks[2]();if(ar[0]===11){ar=[0,++ar[1]]}else{ar[0]++}show(ar)},
   ()=>{let ar=T.querySelector('th[colspan]').textContent.split(' ');return[months.indexOf(ar[0]),+ar[1]]},
-  (td)=>{
-    let ids=[],click=(i,fun)=>clicks[4](ids[i],fun),
+  async(td)=>{
+    let ids=[],name=[td.firstChild.textContent,T.querySelector('th[colspan]').textContent.split(' ')[0]],
+    click=(i,fun)=>clicks[4](ids[i],fun),
     arr=Array.from(td.querySelectorAll('div')).map(el=>{ids.push(el.dataset.date);return[el.textContent,el.dataset.time]});
-    JS('workout-update',[arr,click,update,remove])
-    arr=null;pushState(1)
+    await JS('workout-update',[arr,click,update,remove])
+    arr=null;td=null;pushState(1);if(name[1].slice(-1)==='т')name[1]+='а';else name[1]=name[1].slice(0,-1)+'я'
+    table.querySelectorAll('tr').forEach((tr,i)=>tr.insertAdjacentHTML('beforeend',`<th class='table-dark'>${inTime(ids[i])}</th>`))
+    table.insertAdjacentHTML('afterbegin',`<thead><tr><td colspan='3' class='table-info'>${name.join(' ')}</td></tr></thead>`)
   },
   (key,fun)=>db('calendar',(obj)=>{
     id_click=key;let ar=obj.date[key];ar=[obj.rest[ar[1]].slice(1).concat(obj.name[ar[0]]),ar.slice(2).map(i=>obj.drill[i])];fun(ar,0)
@@ -24,6 +27,7 @@ funDates=(arr,first)=>{
     if(ar.length){td.innerHTML+=ar.reduce((str,ar)=>`${str}<div data-date='${ar[0]}' data-time='${ar[2]}' style='width:${width}px;margin-right:-.8rem;overflow:hidden'><span class='badge badge-danger'>${ar[1]}</span></div>`,'');td.classList.add('p-0')}
   })
 },
+inTime=(d)=>new Date(+d).toLocaleTimeString().slice(0,5),
 next=(first,last)=>db('calendar',(obj)=>{
   let arr=[],end=()=>funDates(arr,first);
   for(let key in obj.date){let d=+key,ar=obj.date[key];if(d>first){arr.push([d,obj.name[ar[0]],obj.rest[ar[1]][0]]);if(d>last)return end()}}
