@@ -41,7 +41,7 @@ work=[
 ].forEach((fun,i)=>T3.querySelector(`td.shadow-sm:nth-child(${i+1})`).onclick=fun)
 none.add(T3.querySelector('td.shadow-sm'))
 arr.forEach(ar=>ar[4]=links[ar[4]]);links=links[0]
-utterance.lang='ru';utterance.volume=1;utterance.rate=1.2;utterance.pitch=0.4;
+utterance.lang='ru';utterance.volume=1;utterance.rate=1.1;utterance.pitch=0.4;
 ar=arr.shift();funImg();route();pause=pauses.shift()
 window.addEventListener('popstate',clear,{once:true})
 
