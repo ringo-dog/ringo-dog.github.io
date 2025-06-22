@@ -13,8 +13,8 @@ clicks=[
     arr=Array.from(td.querySelectorAll('div')).map(el=>{ids.push(el.dataset.date);return[el.textContent,el.dataset.time]});
     await JS('workout-update',[arr,click,update,remove])
     arr=null;td=null;pushState(1);if(name[1].slice(-1)==='т')name[1]+='а';else name[1]=name[1].slice(0,-1)+'я'
-    table.querySelectorAll('tr').forEach((tr,i)=>tr.insertAdjacentHTML('beforeend',`<th class='table-dark'>${inTime(ids[i])}</th>`))
-    table.insertAdjacentHTML('afterbegin',`<thead><tr><td colspan='3' class='table-info'>${name.join(' ')}</td></tr></thead>`)
+    table.querySelectorAll('tr').forEach((tr,i)=>tr.insertAdjacentHTML('beforeend',`<td class='table-dark'>${inTime(ids[i])}</td>`))
+    table.insertAdjacentHTML('afterbegin',`<thead><tr><th colspan='3'>${name.join(' ')}</th></tr></thead>`)
   },
   (key,fun)=>db('calendar',(obj)=>{
     id_click=key;let ar=obj.date[key];ar=[obj.rest[ar[1]].slice(1).concat(obj.name[ar[0]]),ar.slice(2).map(i=>obj.drill[i])];fun(ar,0)
