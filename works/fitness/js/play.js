@@ -8,7 +8,7 @@ imgs=T3.querySelectorAll('img'),
 pauses=['Подготовка','Отдых между упражнениями','Охлаждение'].map((el,i)=>[el,T.querySelectorAll(`caption.d-flex span`)[i].textContent]),
 pause=pauses.shift(),
 utterance=new SpeechSynthesisUtterance(),
-clear=()=>{clearInterval(interval);clearTimeout(timeout)},
+clear=()=>{clearInterval(interval);if(timeout)clearTimeout(timeout)},
 end=()=>{
   let fun=()=>funEnd(()=>{synthVoice('Тренировка закончена');history.back()})
   pause=pauses.shift();if(pause[1]==='00:00'){fun()}else{rest[2](pause);next=fun}
