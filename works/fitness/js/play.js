@@ -13,7 +13,7 @@ end=()=>{
   let fun=()=>funEnd(()=>{synthVoice('Тренировка закончена');history.back()})
   pause=pauses.shift();if(pause[1]==='00:00'){fun()}else{rest[2](pause);next=fun}
 },
-funImg=()=>imgs[1].src=ar[4],
+funImg=()=>imgs[1].src=ar[5],
 minus=()=>{time--;(time===0)?next():timer.textContent=inTime(time)},
 route=()=>(pause[1]==='00:00')?work[0]():rest[1](),
 show=(ar)=>{
@@ -25,7 +25,7 @@ synthVoice=(text)=>{utterance.text=text;window.speechSynthesis.speak(utterance)}
 rest=[
   ()=>{next=(ar[0]===0)?route:work[0];(ar[2]==='00:00')?next():rest[2](['Отдых между подходами',ar[2]])},
   ()=>{rest[2](pause);next=(ar)?work[0]:end},
-  (ar)=>show(ar.concat(0,1))
+  (ar)=>{show(ar.concat(0,1));let fun=synthVoice(time);setTimeout(()=>{setTimeout(fun,2000);setTimeout(fun,1000);fun()},(time-3)*1000)}
 ],
 work=[
   ()=>{
@@ -40,7 +40,7 @@ work=[
   ()=>next()
 ].forEach((fun,i)=>T3.querySelector(`td.shadow-sm:nth-child(${i+1})`).onclick=fun)
 none.add(T3.querySelector('td.shadow-sm'))
-arr.forEach(ar=>ar[4]=links[ar[4]]);links=links[0]
+arr.forEach(ar=>ar[5]=links[ar[5]]);links=links[0]
 utterance.lang='ru';utterance.volume=1;utterance.rate=1.1;utterance.pitch=0.4;
 ar=arr.shift();funImg();route();pause=pauses.shift()
 window.addEventListener('popstate',clear,{once:true})
