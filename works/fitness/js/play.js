@@ -25,12 +25,12 @@ synthVoice=(text)=>{utterance.text=text;window.speechSynthesis.speak(utterance)}
 rest=[
   ()=>{next=(ar[0]===0)?route:work[0];(ar[2]==='00:00')?next():rest[2](['Отдых между подходами',ar[2]])},
   ()=>{rest[2](pause);next=(ar)?work[0]:end},
-  (ar)=>{show(ar.concat(0,1));let fun=synthVoice(time);setTimeout(()=>{setTimeout(fun,2000);setTimeout(fun,1000);fun()},(time-3)*1000)}
+  (ar)=>{show(ar.concat(0,1));let fun=synthVoice(time),sec=time-3;setTimeout(()=>{setTimeout(fun,2000);setTimeout(fun,1000);fun()},sec*1000)}
 ],
 work=[
   ()=>{
     if(ar[1]==='00:00'){work[1]();next();return}
-    imgs[0].src=imgs[1].src;show([ar[3],ar[1],1,0]);ar[0]--;if(ar[0]===0){work[1]()}else{next=rest[0];funImg()}
+    imgs[0].src=imgs[1].src;show([ar[4],ar[1],1,0]);ar[0]--;if(ar[0]===0){work[1]()}else{next=rest[0];funImg()}
   },
   ()=>{ar=arr.shift();if(ar){next=route;funImg()}else{next=end;imgs[1].src=links}}
 ];
