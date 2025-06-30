@@ -14,7 +14,7 @@ end=()=>{
   pause=pauses.shift();if(pause[1]==='00:00'){fun()}else{rest[2](pause);next=fun}
 },
 funImg=()=>imgs[1].src=ar[5],
-funTimeout=()=>{setTimeout(timeout,2000);setTimeout(timeout,1000);timeout()},
+funTimeout=()=>{let fun=()=>synthVoice(time);setTimeout(fun,2000);setTimeout(fun,1000);fun()},
 minus=()=>{time--;(time===0)?next():timer.textContent=inTime(time)},
 route=()=>(pause[1]==='00:00')?work[0]():rest[1](),
 show=(ar)=>{
@@ -26,7 +26,7 @@ synthVoice=(text)=>{utterance.text=text;window.speechSynthesis.speak(utterance)}
 rest=[
   ()=>{next=(ar[0]===0)?route:work[0];(ar[2]==='00:00')?next():rest[2](['Отдых между подходами',ar[2]])},
   ()=>{rest[2](pause);next=(ar)?work[0]:end},
-  (ar)=>{show(ar.concat(0,1));timeout=()=>synthVoice(time),sec=time-3;setTimeout(funTimeout,sec*1000)}
+  (ar)=>{show(ar.concat(0,1));timeout=funTimeout,sec=time-3;setTimeout(timeout,sec*1000)}
 ],
 work=[
   ()=>{
