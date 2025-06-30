@@ -118,27 +118,48 @@ db('workout-name',(names)=>db('workout',(obj)=>db('drill',(drill)=>{
 })))
 page3=(id,name,spans)=>db('img',(links)=>{
   links=links[id]
-  let str=`<select class='select-0'>`
-  for(let i=0;i<10;i++)str+=`<option class='small'>0${i}</option>`
-  for(let i=10;i<60;i++)str+=`<option class='small'>${i}</option>`
-  str+='</select>'
   let arr=Array.from(spans).map(el=>el.textContent)
   beforebegin(`<table id='T3' class='fixed-top h-100 table table-sm table-responsive table-light text-center'>
-    <tr><th class='pb-4' colspan='4'>${name}</th></tr>
-    <tr><td>Время работы</td><td class='shadow-sm'>${str}:${str}</td><td colspan='2' rowspan='2'><input placeholder='Дополнительно' style='max-width:35vw' class='float-right form-control form-control-sm'/></td></tr>
-    <tr><td>Время отдыха</td><td class='shadow-sm'>${str}:${str}</td></tr>
-    <tr class='table-secondary'><td>Повторений</td><td>${arr[0]}</td><td>${inBtn('secondary','-')}</td><td>${inBtn('secondary','+')}</td></tr>
-    <tr><td colspan='4' class='p-0'><img src='${links}' style='width:100vw'/></td></tr>
+    <tr><th class='pb-4 border-bottom' colspan='4'>${name}</th></tr>
+    <tr><td>Время работы</td><td class='shadow-sm'>${time_str}:${time_str}</td><td colspan='2' rowspan='2'><input placeholder='Дополнительно' style='max-width:35vw' class='float-right form-control form-control-sm'/></td></tr>
+    <tr><td>Время отдыха</td><td class='shadow-sm'>${time_str}:${time_str}</td></tr>
+    <tr><td>Повторений</td><td>${arr[0]}</td><td>${inBtn('secondary','-')}</td><td>${inBtn('secondary','+')}</td></tr>
+    <tr><td colspan='4' class='p-0 pt-4 border-top'><img src='${links}' style='width:100vw'/></td></tr>
   </table>`)
-  let selects=T3.querySelectorAll('select'),input=T3.querySelector('input'),count=T3.querySelector('.table-secondary td:nth-child(2)');
+  let selects=T3.querySelectorAll('select'),input=T3.querySelector('input'),count=T3.querySelector('tr:nth-child(4) td:nth-child(2)');
   if(arr[3])input.value=arr[3]
   arr[1].split(':').concat(arr[2].split(':')).forEach((el,i)=>selects[i].value=el)
   input.oninput=function(){if(this.value.length>15)this.value=this.value.slice(0,15)}
+  T3.querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>clicks[i](count))
   pushState(3)
   window.addEventListener('popstate',()=>{
     arr=[count.textContent,`${selects[0].value}:${selects[1].value}`,`${selects[2].value}:${selects[3].value}`,input.value]
-    for(let i=0;i<3;i++)spans[i].textContent=arr[i];allTime()
+    for(let i=0;i<4;i++)spans[i].textContent=arr[i];allTime()
   },{once:true})
 })
+clicks=[(td)=>{let i=td.textContent-1;if(i>0)td.textContent=i},(td)=>td.textContent-=-1]
+append[1]=(id)=>`<tr data-id='${id}'><td class='small shadow table-secondary'></td><td class='shadow-sm'>${select.querySelector(`[value='${id}']`).textContent}<div style='min-width:75vw' class='d-flex justify-content-around'><span class='badge badge-warning'>1</span><span class='badge badge-success'>00:00</span><span class='badge badge-danger'>00:00</span><span class='col-4 overflow-hidden badge badge-info'></span></div></td></tr>`
+allTime=()=>{
+  let sum=0,list=T.querySelectorAll('span'),size=list.length;
+  if(size===4){
+    select.addEventListener('change',()=>T.querySelector('a:nth-child(2)').classList.remove('invisible'),{once:true})
+    list[0].textContent='00:00';T.querySelector('a:nth-child(2)').classList.add('invisible');return
+  }
+  sum+=inSec(list[1]);sum+=inSec(list[3]);sum+=inSec(list[2])*((size-4)/4-1);
+  for(let i=4;i<size;i++){
+    let ar=[+list[i].textContent,inSec(list[++i]),inSec(list[++i])];sum+=(ar[0]>1)?ar[0]*ar[1]+(ar[0]-1)*ar[2]:ar[1]+ar[2];++i
+  }
+  list[0].textContent=inTime(sum)
+}
+clickCaption=function(){
+  let[n,span]=this.children;
+  beforebegin(`<table id='T3' class='fixed-top h-100 table table-light text-center'><tr><th colspan='3'>${n.textContent}</th></tr><tr><td class='h3 shadow-sm'>${time_str}:${time_str}</td></tr></table>`)
+  let selects=T3.querySelectorAll('select');span.textContent.split(':').forEach((el,i)=>selects[i].value=el)
+  window.addEventListener('popstate',()=>{span.textContent=`${selects[0].value}:${selects[1].value}`;allTime()},{once:true})
+}
+let time_str=`<select class='select-0'>`
+for(let i=0;i<10;i++)time_str+=`<option class='small'>0${i}</option>`
+for(let i=10;i<60;i++)time_str+=`<option class='small'>${i}</option>`
+time_str+='</select>'
 
 }
