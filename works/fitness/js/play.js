@@ -31,7 +31,7 @@ rest=[
 work=[
   ()=>{
     if(ar[1]==='00:00'){work[2]();next();return}
-    imgs[0].src=imgs[1].src;show([ar[4],ar[1],1,0]);if(ar[2])synthVoice(ar[2]);ar[0]--;if(ar[0]===0){work[2]()}else{next=rest[0];funImg()}
+    imgs[0].src=imgs[1].src;show([ar[4],ar[1],1,0]);if(ar[3])synthVoice(ar[3]);ar[0]--;if(ar[0]===0){work[2]()}else{next=rest[0];funImg()}
   },
   ()=>{
     show([ar[4],ar[1],1,0]);synthVoice(`${ar[0]} подход`);ar[0]--;if(ar[0]===0){work[2]()}else{next=rest[0]}
