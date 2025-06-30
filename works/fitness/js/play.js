@@ -26,7 +26,7 @@ synthVoice=(text)=>{utterance.text=text;window.speechSynthesis.speak(utterance)}
 rest=[
   ()=>{next=(ar[0]===0)?route:work[0];(ar[2]==='00:00')?next():rest[2](['Отдых между подходами',ar[2]])},
   ()=>{rest[2](pause);next=(ar)?work[0]:end},
-  (ar)=>{show(ar.concat(0,1));timeout=funTimeout,sec=time-3;setTimeout(timeout,sec*1000)}
+  (ar)=>{show(ar.concat(0,1));timeout=setTimeout(funTimeout,(time-3)*1000)}
 ],
 work=[
   ()=>{
