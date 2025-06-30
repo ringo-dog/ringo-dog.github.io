@@ -24,14 +24,17 @@ show=(ar)=>{
 },
 synthVoice=(text)=>{utterance.text=text;window.speechSynthesis.speak(utterance)},
 rest=[
-  ()=>{next=(ar[0]===0)?route:work[0];(ar[2]==='00:00')?next():rest[2](['Отдых между подходами',ar[2]])},
+  ()=>{next=(ar[0]===0)?route:work[1];(ar[2]==='00:00')?next():rest[2](['Отдых между подходами',ar[2]])},
   ()=>{rest[2](pause);next=(ar)?work[0]:end},
-  (ar)=>{show(ar.concat(0,1));timeout=setTimeout(funTimeout,(time-3)*1000)}
+  (ar)=>{show(ar.concat(0,1));if(time>10)timeout=setTimeout(funTimeout,(time-3)*1000)}
 ],
 work=[
   ()=>{
-    if(ar[1]==='00:00'){work[1]();next();return}
-    imgs[0].src=imgs[1].src;show([ar[4],ar[1],1,0]);ar[0]--;if(ar[0]===0){work[1]()}else{next=rest[0];funImg()}
+    if(ar[1]==='00:00'){work[2]();next();return}
+    imgs[0].src=imgs[1].src;show([ar[4],ar[1],1,0]);if(ar[2])synthVoice(ar[2]);ar[0]--;if(ar[0]===0){work[2]()}else{next=rest[0];funImg()}
+  },
+  ()=>{
+    show([ar[4],ar[1],1,0]);synthVoice(`${ar[0]} подход`);ar[0]--;if(ar[0]===0){work[2]()}else{next=rest[0]}
   },
   ()=>{ar=arr.shift();if(ar){next=route;funImg()}else{next=end;imgs[1].src=links}}
 ];
@@ -42,7 +45,7 @@ work=[
 ].forEach((fun,i)=>T3.querySelector(`td.shadow-sm:nth-child(${i+1})`).onclick=fun)
 none.add(T3.querySelector('td.shadow-sm'))
 arr.forEach(ar=>ar[5]=links[ar[5]]);links=links[0]
-utterance.lang='ru';utterance.volume=1;utterance.rate=1.1;utterance.pitch=0.4;
+utterance.lang='ru';utterance.volume=1;utterance.rate=1.1;utterance.pitch=0.5;
 ar=arr.shift();funImg();route();pause=pauses.shift()
 window.addEventListener('popstate',clear,{once:true})
 
