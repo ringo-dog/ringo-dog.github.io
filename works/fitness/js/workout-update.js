@@ -138,7 +138,7 @@ page3=(id,name,spans)=>db('img',(links)=>{
   },{once:true})
 })
 clicks=[(td)=>{let i=td.textContent-1;if(i>0)td.textContent=i},(td)=>td.textContent-=-1]
-append[1]=(id)=>`<tr data-id='${id}'><td class='small shadow table-secondary'></td><td class='shadow-sm'>${select.querySelector(`[value='${id}']`).textContent}<div style='min-width:75vw' class='d-flex justify-content-around'><span class='badge badge-warning'>1</span><span class='badge badge-success'>00:00</span><span class='badge badge-danger'>00:00</span><span class='col-4 overflow-hidden badge badge-info'></span></div></td></tr>`
+append[1]=(id)=>`<tr data-id='${id}'><td class='small shadow table-secondary'></td><td class='shadow-sm'>${select.querySelector(`[value='${id}']`).textContent}<div style='min-width:75vw' class='d-flex justify-content-around'><span class='badge badge-warning'>1</span><span class='badge badge-success'>00:00</span><span class='badge badge-danger'>00:00</span><div class='col-4 overflow-hidden'><span class='badge badge-info'></span></div></div></td></tr>`
 allTime=()=>{
   let sum=0,list=T.querySelectorAll('span'),size=list.length;
   if(size===4){
