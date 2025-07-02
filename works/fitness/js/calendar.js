@@ -11,6 +11,7 @@ clicks=[
     let ids=[],name=[td.firstChild.textContent].concat(T.querySelector('th[colspan]').textContent.split(' ')),
     click=(i,fun)=>clicks[4](ids[i],fun),
     arr=Array.from(td.querySelectorAll('div')).map(el=>{ids.push(el.dataset.date);return[el.textContent,el.dataset.time]});
+    if(td.matches('.text-muted')){let i=months.indexOf(name[1]);if(name[0].length===1)i++;else i--;name[1]=months[i]}
     await JS('workout-update',[arr,click,update,remove])
     arr=null;td=null;pushState(1);if(name[1].slice(-1)==='т')name[1]+='а';else name[1]=name[1].slice(0,-1)+'я'
     table.querySelectorAll('tr').forEach((tr,i)=>tr.insertAdjacentHTML('beforeend',`<td class='p-0'><span class='p-1 rounded badge-info'>${inTime(ids[i])}</span></td>`))
