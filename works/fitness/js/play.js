@@ -1,7 +1,7 @@
 import{beforebegin,db,inSec,inTime,none}from'./function.js'
 export default(funEnd)=>db('img',(links)=>{
 
-beforebegin(`<table id='T3' class='fixed-top h-100 table table-responsive table-dark text-center overflow-hidden'><tr><th id='title' colspan='3'></th></tr><tr><td colspan='3' class='p-0'><img class='vw-100'/></td></tr><tr><td id='timer' colspan='3' class='h2 p-3'></td></tr><tr><td colspan='3' class='p-0'><img class='vw-100'/></td></tr><tr>${['<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>','<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M5 6.25a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0zm3.5 0a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0z"/>'].map(el=>`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">${el}</svg>`).concat('Дальше').reduce((str,el)=>`${str}<td class='w-50 shadow-sm'>${el}</td>`,'')}</tr></table>`)
+beforebegin(`<table id='T3' class='fixed-top h-100 table table-responsive table-dark text-center overflow-hidden'><tr><th id='title' colspan='3'></th></tr><tr><td colspan='3' class='p-0'><img class='vw-100'/></td></tr><tr><td id='timer' colspan='3' class='h2 p-3'></td></tr><tr><td colspan='3' class='p-0'><div class='w-100'></div><img class='vw-100'/></td></tr><tr>${['<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>','<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M5 6.25a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0zm3.5 0a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0z"/>'].map(el=>`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">${el}</svg>`).concat('Дальше').reduce((str,el)=>`${str}<td class='w-50 shadow-sm'>${el}</td>`,'')}</tr></table>`)
 let next,ar,count,interval,time,timeout,
 arr=Array.from(T.querySelectorAll('tr')).map(tr=>Array.from(tr.querySelectorAll('span')).map(el=>el.textContent).concat(tr.children[1].firstChild.textContent,tr.dataset.id)),
 counts=['Десяты','Девяты','Восьмо','Седьмо','Шесто','Пяты','Четвёрты','Трети','Второ'],
@@ -14,7 +14,7 @@ end=()=>{
   let fun=()=>funEnd(()=>{synthVoice('Тренировка закончена');history.back()})
   pause=pauses.shift();if(pause[1]==='00:00'){fun()}else{rest[2](pause);next=fun}
 },
-funImg=()=>imgs[1].src=ar[5],
+funImg=()=>{imgs[1].src=ar[5];imgs[1].previousSibling.innerText=ar[3]},
 funTimeout=()=>{let fun=()=>synthVoice(time);setTimeout(fun,2000);setTimeout(fun,1000);fun()},
 minus=()=>{time--;(time===0)?next():timer.textContent=inTime(time)},
 route=()=>(pause[1]==='00:00')?work[0]():rest[1](),
