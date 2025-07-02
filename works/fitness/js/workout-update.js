@@ -1,7 +1,7 @@
 import{JS,db,inBtn,inSec,inTime,beforebegin,pushState}from'./function.js'
 export default([arr,funClick,funSave,funTrash])=>{
 
-let select_str,tr_click,x=[0,0],y=[0,0],
+let select_str,time_str,tr_click,x=[0,0],y=[0,0],
 inTr=(ar)=>ar.reduce((a,b)=>`${a}<td>${b}</td>`,'<tr>')+'</tr>',inTrArr=(str,ar)=>str+inTr(ar),
 page1=()=>{
   beforebegin(`<table id='table' class='fixed-top h-100 m-0 table table-light h4 text-center'></table>`)
@@ -20,11 +20,11 @@ page2=(ar,index)=>{
       select.addEventListener('change',()=>{for(let i=0;i<2;i++)T.querySelector(`a:nth-child(${i+1})`).classList.remove('invisible')},{once:true})
     }
   ][index]()
+  pushState(2)
   T.querySelectorAll('a').forEach((a,i)=>a.onclick=clickHead[i])
   T.querySelector('input').oninput=function(){if(this.value.length>30)this.value=this.value.slice(0,30)}
   T.querySelectorAll('.d-flex:nth-child(1n+2)').forEach(el=>el.onclick=clickCaption)
-  select.onchange=()=>append[0](append[1](select.value))
-  pushState(2)
+  select.onchange=()=>append[0](append[1](select.value))/* alltime */
 },
 allTime=()=>{
   let sum=0,list=T.querySelectorAll('span'),size=list.length;
@@ -40,10 +40,12 @@ allTime=()=>{
 },
 append=[
   (str)=>{tbody.innerHTML+=str;numbers();tbody.querySelectorAll('tr').forEach(tr=>tr.onclick=clickTr)},
-  (id)=>`<tr data-id='${id}'><td class='small shadow table-secondary'></td><td class='shadow-sm'>${select.querySelector(`[value='${id}']`).textContent}<div style='min-width:75vw' class='d-flex justify-content-around'><span class='badge badge-warning'>1</span><span class='badge badge-success'>00:00</span><span class='badge badge-danger'>00:00</span><div class='col-4 text-right overflow-hidden'><span class='badge badge-info'></span></div></div></td></tr>`],
+  (id)=>`<tr data-id='${id}'><td class='small shadow table-secondary'></td><td class='shadow-sm'>${select.querySelector(`[value='${id}']`).textContent}<div style='min-width:75vw' class='d-flex justify-content-around'><span class='badge badge-warning'>1</span><span class='badge badge-success'>00:00</span><span class='badge badge-danger'>00:00</span><div class='col-4 text-right overflow-hidden'><span class='badge badge-info'></span></div></div></td></tr>`
+],
 clickCaption=function(){
   let[n,span]=this.children;
   beforebegin(`<table id='T3' class='fixed-top h-100 table table-light text-center'><tr><th colspan='3'>${n.textContent}</th></tr><tr><td class='h3 shadow-sm'>${time_str}:${time_str}</td></tr></table>`)
+  pushState(3)
   let selects=T3.querySelectorAll('select');span.textContent.split(':').forEach((el,i)=>selects[i].value=el)
   window.addEventListener('popstate',()=>{span.textContent=`${selects[0].value}:${selects[1].value}`;allTime()},{once:true})
 },
@@ -76,26 +78,31 @@ start=(arr)=>beforebegin(`<table id='T' class='fixed-top h-100 table table-respo
 page3=(id,name,spans)=>db('img',(links)=>{
   links=links[id]
   let arr=Array.from(spans).map(el=>el.textContent)
-  beforebegin(`<table id='T3' class='fixed-top h-100 table table-sm table-responsive table-light text-center'><tr><th class='pb-4 border-bottom' colspan='4'>${name}</th></tr><tr><td>Время работы</td><td class='shadow-sm'>${time_str}:${time_str}</td><td colspan='2' rowspan='2'><input placeholder='Дополнительно' style='max-width:35vw' class='float-right form-control form-control-sm'/></td></tr><tr><td>Время отдыха</td><td class='shadow-sm'>${time_str}:${time_str}</td></tr><tr><td>Повторений</td><td>${arr[0]}</td><td>${inBtn('secondary','-')}</td><td>${inBtn('secondary','+')}</td></tr><tr><td colspan='4' class='p-0 pt-4 border-top'><img src='${links}' style='width:100vw'/></td></tr></table>`)
+  beforebegin(`<table id='T3' class='fixed-top h-100 table table-sm table-responsive table-light text-center'>
+    <tr><th class='pb-4 border-bottom' colspan='4'>${name}</th></tr>
+    <tr><td>Время работы</td><td class='shadow-sm'>${time_str}:${time_str}</td><td colspan='2' rowspan='2'><input placeholder='Дополнительно' style='max-width:35vw' class='float-right form-control form-control-sm'/></td></tr>
+    <tr><td>Время отдыха</td><td class='shadow-sm'>${time_str}:${time_str}</td></tr>
+    <tr><td>Повторений</td><td>${arr[0]}</td><td>${inBtn('secondary','-')}</td><td>${inBtn('secondary','+')}</td></tr>
+    <tr><td colspan='4' class='p-0 pt-4 border-top'><img src='${links}' style='width:100vw'/></td></tr>
+  </table>`)
+  pushState(3)
   let selects=T3.querySelectorAll('select'),input=T3.querySelector('input'),count=T3.querySelector('tr:nth-child(4) td:nth-child(2)');
   if(arr[3])input.value=arr[3]
   arr[1].split(':').concat(arr[2].split(':')).forEach((el,i)=>selects[i].value=el)
   input.oninput=function(){if(this.value.length>15)this.value=this.value.slice(0,15)}
   T3.querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>clicks[i](count))
-  pushState(3)
   window.addEventListener('popstate',()=>{
     arr=[count.textContent,`${selects[0].value}:${selects[1].value}`,`${selects[2].value}:${selects[3].value}`,input.value]
     for(let i=0;i<4;i++)spans[i].textContent=arr[i];allTime()
   },{once:true})
 }),
 clicks=[(td)=>{let i=td.textContent-1;if(i>0)td.textContent=i},(td)=>td.textContent-=-1],
-inBtns=(a)=>[10,15,30].reduce((str,t)=>str+inBtn('secondary',a+t),`<div class='btn-group btn-group-vertical'>`)+'</div>',
 clickHead=[
   ()=>{
     let end=()=>{alert(`Сохранена тренировка:\n${arr[0][0]}`);for(let i=0;i<2;i++)tr_click.children[i].innerText=arr[0][i]},
     arr=save();funSave(arr,end)
   },
-  ()=>JS('play',(end)=>JS('calendar-update',[save(),(arr,obj)=>obj.date[Date.now()]=arr,end])),
+  ()=>{JS('play',(end)=>JS('calendar-update',[save(),(arr,obj)=>obj.date[Date.now()]=arr,end]));pushState(3)},
   ()=>funTrash(()=>{history.back();tr_click.remove()})
 ],
 save=()=>{
@@ -109,13 +116,10 @@ save=()=>{
 db('workout-name',(names)=>db('workout',(obj)=>db('drill',(drill)=>{
   let arr=Object.entries(obj).map(([,ar],i)=>[names[i],ar.map(id=>[drill[id],id]).sort()]).sort();names=null;obj=null;drill=null;
   select_str=arr.reduce((str,[name,arr])=>`${str}<optgroup label='${name}'>${arr.reduce((s,ar)=>`${s}<option value='${ar[1]}'>${ar[0]}</option>`,'')}</optgroup>`,'<option selected disabled>Добавить</option>')
+  arr=null;time_str=`<select class='select-0'>`
+  for(let i=0;i<10;i++)time_str+=`<option class='small'>0${i}</option>`
+  for(let i=10;i<60;i++)time_str+=`<option class='small'>${i}</option>`
+  time_str+='</select>'
 })))
-
-
-
-let time_str=`<select class='select-0'>`
-for(let i=0;i<10;i++)time_str+=`<option class='small'>0${i}</option>`
-for(let i=10;i<60;i++)time_str+=`<option class='small'>${i}</option>`
-time_str+='</select>'
 
 }
