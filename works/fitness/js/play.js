@@ -38,7 +38,7 @@ work=[
     if(count.length<ar[0]){let size=ar[0]-count.length,i=0;for(i;i<size;i++)count.unshift(null)}
   },
   ()=>{show([ar[4],ar[1],1,0]);ar[0]--;synthVoice(count[ar[0]]);if(ar[0]===0){work[2]()}else{next=rest[0]}},
-  ()=>{ar=arr.shift();if(ar){next=route;funImg()}else{next=end;imgs[1].src=links}}
+  ()=>{ar=arr.shift();if(ar){next=route;funImg()}else{next=end;imgs[1].src=links;imgs[1].previousSibling.remove()}}
 ];
 [
   function(){minus();interval=setInterval(minus,1000);none.add(this);none.remove(this.nextSibling)},
