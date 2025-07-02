@@ -9,7 +9,7 @@ imgs=T3.querySelectorAll('img'),
 pauses=['Подготовка','Отдых между упражнениями','Охлаждение'].map((el,i)=>[el,T.querySelectorAll(`caption.d-flex span`)[i].textContent]),
 pause=pauses.shift(),
 utterance=new SpeechSynthesisUtterance(),
-clear=()=>{clearInterval(interval);if(timeout)clearTimeout(timeout)},
+clear=()=>{clearInterval(interval);try{clearTimeout(timeout)}catch{}},
 end=()=>{
   let fun=()=>funEnd(()=>{synthVoice('Тренировка закончена');history.back()})
   pause=pauses.shift();if(pause[1]==='00:00'){fun()}else{rest[2](pause);next=fun}
@@ -39,7 +39,8 @@ work=[
   },
   ()=>{show([ar[4],ar[1],1,0]);ar[0]--;synthVoice(count[ar[0]]);if(ar[0]===0){work[2]()}else{next=rest[0]}},
   ()=>{ar=arr.shift();if(ar){next=route;funImg()}else{next=end;imgs[1].src=links;imgs[1].previousSibling.remove()}}
-];
+]
+;
 [
   function(){minus();interval=setInterval(minus,1000);none.add(this);none.remove(this.nextSibling)},
   function(){clear();none.add(this);none.remove(this.previousSibling)},
