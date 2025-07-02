@@ -8,12 +8,12 @@ clicks=[
   ()=>{let ar=clicks[2]();if(ar[0]===11){ar=[0,++ar[1]]}else{ar[0]++}show(ar)},
   ()=>{let ar=T.querySelector('th[colspan]').textContent.split(' ');return[months.indexOf(ar[0]),+ar[1]]},
   async(td)=>{
-    let ids=[],name=[td.firstChild.textContent,T.querySelector('th[colspan]').textContent.split(' ')[0]],
+    let ids=[],name=[td.firstChild.textContent].concat(T.querySelector('th[colspan]').textContent.split(' ')),
     click=(i,fun)=>clicks[4](ids[i],fun),
     arr=Array.from(td.querySelectorAll('div')).map(el=>{ids.push(el.dataset.date);return[el.textContent,el.dataset.time]});
     await JS('workout-update',[arr,click,update,remove])
     arr=null;td=null;pushState(1);if(name[1].slice(-1)==='т')name[1]+='а';else name[1]=name[1].slice(0,-1)+'я'
-    table.querySelectorAll('tr').forEach((tr,i)=>tr.insertAdjacentHTML('beforeend',`<td class='table-dark'>${inTime(ids[i])}</td>`))
+    table.querySelectorAll('tr').forEach((tr,i)=>tr.insertAdjacentHTML('beforeend',`<td class='p-0'><span class='p-1 rounded badge-info'>${inTime(ids[i])}</span></td>`))
     table.insertAdjacentHTML('afterbegin',`<thead><tr><th colspan='3'>${name.join(' ')}</th></tr></thead>`)
   },
   (key,fun)=>db('calendar',(obj)=>{
