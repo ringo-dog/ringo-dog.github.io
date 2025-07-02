@@ -21,12 +21,11 @@ page1=()=>db('workout-name',(arr)=>{
 page2=(name,index)=>db('drill',(arr)=>db('workout',(obj)=>{
   arr=Object.values(obj)[index].map(id=>[id,arr[id]]);obj=null
   beforebegin(`<table id='table' class='fixed-top h-100 table table-responsive table-light'><tr><th class='vw-100 text-center'>${name}</th></tr>${arr.reduce(tdOneId,select_str)}<tr></table>`)
-  arr=null;clicks[0]=clicks[1]
+  pushState(1);arr=null;clicks[0]=clicks[1]
   table.querySelector('.btn').onclick=()=>{table.querySelector('.btn').classList.add('active');clicks[0]=clicks[1]}
   select.onclick=clicks[3]
   select.onchange=()=>{clicks[3];table.querySelectorAll('tr.d-none').forEach(none.remove)}
   table.querySelectorAll('tr[data-id]').forEach(tr=>tr.onclick=()=>clicks[0](tr))
-  pushState(1)
 }))
 db('workout-main',(arr)=>{
   select_str=arr.reduce((str,[[name]],i)=>`${str}<option value='${i}'>${name}</option>`,`<caption class='pt-0 input-group'><div class='w-50 input-group-prepend'>${inBtn('outline-secondary w-100 active','Посмотреть')}</div><select id='select' class='custom-select'><option selected disabled>Добавить в тренировку</option>`)+'</select></caption>';
