@@ -24,7 +24,7 @@ page2=(ar,index)=>{
   T.querySelectorAll('a').forEach((a,i)=>a.onclick=clickHead[i])
   T.querySelector('input').oninput=function(){if(this.value.length>30)this.value=this.value.slice(0,30)}
   T.querySelectorAll('.d-flex:nth-child(1n+2)').forEach(el=>el.onclick=clickCaption)
-  select.onchange=()=>append[0](append[1](select.value))/* alltime */
+  select.onchange=()=>{append[0](append[1](select.value));allTime()}
 },
 allTime=()=>{
   let sum=0,list=T.querySelectorAll('span'),size=list.length;
