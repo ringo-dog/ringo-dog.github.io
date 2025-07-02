@@ -30,6 +30,7 @@ funDates=(arr,first)=>{
 },
 inTime=(d)=>new Date(+d).toLocaleTimeString().slice(0,5),
 next=(first,last)=>db('calendar',(obj)=>{
+  obj.drill.forEach(ar=>{if(ar.length===4)ar.push("")});JS('write',['calendar',obj])
   let arr=[],end=()=>funDates(arr,first);
   for(let key in obj.date){let d=+key,ar=obj.date[key];if(d>first){arr.push([d,obj.name[ar[0]],obj.rest[ar[1]][0]]);if(d>last)return end()}}
   if(arr.length)end()
