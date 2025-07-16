@@ -18,10 +18,11 @@ page1=()=>db('workout-name',(arr)=>{
   T.innerHTML=arr.reduce(tdOne,'');arr=null
   T.querySelectorAll('tr').forEach((tr,i)=>tr.onclick=()=>page2(tr.textContent,i))
 }),
-page2=(name,index)=>db('drill',(arr)=>db('workout',(obj)=>{
-  arr=Object.values(obj)[index].map(id=>[id,arr[id]]);obj=null
+page2=(name,index)=>db('drill',(drill)=>db('workout',(arr)=>{
+  arr=arr[index].map(id=>[id,drill[id]]);drill=null
   beforebegin(`<table id='table' class='fixed-top h-100 table table-responsive table-light'><tr><th class='vw-100 text-center'>${name}</th></tr>${arr.reduce(tdOneId,select_str)}<tr></table>`)
-  pushState(1);arr=null;clicks[0]=clicks[1]
+  pushState(1)
+  arr=null;clicks[0]=clicks[1]
   table.querySelector('.btn').onclick=()=>{table.querySelector('.btn').classList.add('active');clicks[0]=clicks[1]}
   select.onclick=clicks[3]
   select.onchange=()=>{clicks[3];table.querySelectorAll('tr.d-none').forEach(none.remove)}
