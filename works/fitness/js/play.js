@@ -32,13 +32,14 @@ rest=[
 work=[
   ()=>{
     if(ar[1]==='00:00'){work[2]();next();return}
-    imgs[0].src=imgs[1].src;show([ar[4],ar[1],1,0]);if(ar[3])synthVoice(ar[3]);ar[0]--
+    imgs[0].src=imgs[1].src;work[3]();if(ar[3])synthVoice(ar[3])
     if(ar[0]===0)return work[2]()
     next=rest[0];funImg();count=counts.slice(-ar[0]).map(el=>`${el}й подход`)
     if(count.length<ar[0]){let size=ar[0]-count.length,i=0;for(i;i<size;i++)count.unshift(null)}
   },
-  ()=>{show([ar[4],ar[1],1,0]);ar[0]--;synthVoice(count[ar[0]]);if(ar[0]===0){work[2]()}else{next=rest[0]}},
-  ()=>{ar=arr.shift();if(ar){next=route;funImg()}else{next=end;imgs[1].src=links;imgs[1].previousSibling.remove()}}
+  ()=>{work[3]();if(count[ar[0]])synthVoice(count[ar[0]]);if(ar[0]===0){work[2]()}else{next=rest[0]}},
+  ()=>{ar=arr.shift();if(ar){next=route;funImg()}else{next=end;imgs[1].src=links;imgs[1].previousSibling.remove()}},
+  ()=>{show([ar[4],ar[1],1,0]);ar[0]--}
 ]
 ;
 [
