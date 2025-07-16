@@ -113,8 +113,8 @@ save=()=>{
   title.unshift(T.querySelector('input').value);return[title,arr]
 }
 ;page1()
-db('workout-name',(names)=>db('workout',(obj)=>db('drill',(drill)=>{
-  let arr=Object.entries(obj).map(([,ar],i)=>[names[i],ar.map(id=>[drill[id],id]).sort()]).sort();names=null;obj=null;drill=null;
+db('workout-name',(names)=>db('workout',(arr)=>db('drill',(drill)=>{
+  arr=arr.map((ar,i)=>[names[i],ar.map(id=>[drill[id],id]).sort()]).sort();names=null;drill=null;
   select_str=arr.reduce((str,[name,arr])=>`${str}<optgroup label='${name}'>${arr.reduce((s,ar)=>`${s}<option value='${ar[1]}'>${ar[0]}</option>`,'')}</optgroup>`,'<option selected disabled>Добавить</option>')
   arr=null;time_str=`<select class='select-0'>`
   for(let i=0;i<10;i++)time_str+=`<option class='small'>0${i}</option>`
