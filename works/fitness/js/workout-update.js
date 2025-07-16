@@ -2,6 +2,11 @@ import{JS,db,inBtn,inSec,inTime,beforebegin,pushState}from'./function.js'
 export default([arr,funClick,funSave,funTrash])=>{
 
 let select_str,time_str,tr_click,x=[0,0],y=[0,0],
+svgs=[
+'<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>',
+'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>',
+'<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>'
+].map(el=>`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">${el}</svg>`),
 inTr=(ar)=>ar.reduce((a,b)=>`${a}<td>${b}</td>`,'<tr>')+'</tr>',inTrArr=(str,ar)=>str+inTr(ar),
 page1=()=>{
   beforebegin(`<table id='table' class='fixed-top h-100 m-0 table table-light h4 text-center'></table>`)
@@ -10,21 +15,17 @@ page1=()=>{
 },
 page2=(ar,index)=>{
   [
+    ()=>{start(ar[0]);ar=ar[1];append[0](ar.reduce((str,arr)=>str+append[1](arr),''));allTime()},
     ()=>{
-      start(ar[0]);ar=ar[1];append[0](ar.reduce((str,[id])=>str+append[1](id),''));
-      tbody.querySelectorAll('tr').forEach((tr,id)=>tr.querySelectorAll('span').forEach((span,i)=>span.textContent=ar[id][i+1]))
-      allTime()
-    },
-    ()=>{
-      start(['01:00','01:00','01:00',ar]);T.querySelectorAll('a').forEach(a=>a.classList.add('invisible'))
+      start(localStorage.lastRest.split(',').concat(ar));T.querySelectorAll('a').forEach(a=>a.classList.add('invisible'))
       select.addEventListener('change',()=>{for(let i=0;i<2;i++)T.querySelector(`a:nth-child(${i+1})`).classList.remove('invisible')},{once:true})
     }
   ][index]()
   pushState(2)
   T.querySelectorAll('a').forEach((a,i)=>a.onclick=clickHead[i])
   T.querySelector('input').oninput=function(){if(this.value.length>30)this.value=this.value.slice(0,30)}
-  T.querySelectorAll('.d-flex:nth-child(1n+2)').forEach(el=>el.onclick=clickCaption)
-  select.onchange=()=>{append[0](append[1](select.value));allTime()}
+  T.querySelectorAll('.d-flex:nth-child(1n+2)').forEach((el,i)=>el.onclick=()=>clickCaption(el,i))
+  select.onchange=()=>{append[0](append[1]([select.value].concat(localStorage.lastDrill.split(','))));allTime()}
 },
 allTime=()=>{
   let sum=0,list=T.querySelectorAll('span'),size=list.length;
@@ -40,14 +41,17 @@ allTime=()=>{
 },
 append=[
   (str)=>{tbody.innerHTML+=str;numbers();tbody.querySelectorAll('tr').forEach(tr=>tr.onclick=clickTr)},
-  (id)=>`<tr data-id='${id}'><td class='small shadow table-secondary'></td><td class='shadow-sm'>${select.querySelector(`[value='${id}']`).textContent}<div style='min-width:75vw' class='d-flex justify-content-around'><span class='badge badge-warning'>1</span><span class='badge badge-success'>00:00</span><span class='badge badge-danger'>00:00</span><div class='col-4 text-right overflow-hidden'><span class='badge badge-info'></span></div></div></td></tr>`
+  (ar)=>`<tr data-id='${ar[0]}'><td class='small shadow table-secondary'></td><td class='shadow-sm'>${select.querySelector(`[value='${ar[0]}']`).textContent}<div style='min-width:75vw' class='d-flex justify-content-around'><span class='badge badge-warning'>${ar[1]}</span><span class='badge badge-success'>${ar[2]}</span><span class='badge badge-danger'>${ar[3]}</span><div class='col-4 text-right overflow-hidden'><span class='badge badge-info'>${ar[4]||''}</span></div></div></td></tr>`
 ],
-clickCaption=function(){
-  let[n,span]=this.children;
+clickCaption=(elem,i)=>{
+  let[n,span]=elem.children;
   beforebegin(`<table id='T3' class='fixed-top h-100 table table-light text-center'><tr><th colspan='3'>${n.textContent}</th></tr><tr><td class='h3 shadow-sm'>${time_str}:${time_str}</td></tr></table>`)
   pushState(3)
-  let selects=T3.querySelectorAll('select');span.textContent.split(':').forEach((el,i)=>selects[i].value=el)
-  window.addEventListener('popstate',()=>{span.textContent=`${selects[0].value}:${selects[1].value}`;allTime()},{once:true})
+  let selects=T3.querySelectorAll('select'),data=span.textContent;data.split(':').forEach((el,i)=>selects[i].value=el)
+  window.addEventListener('popstate',()=>{
+    n=`${selects[0].value}:${selects[1].value}`;if(n===data)return
+    span.textContent=n;allTime();data=localStorage.lastRest.split(',');data[i]=n;localStorage.lastRest=data
+  },{once:true})
 },
 clickNum=(td,tr)=>{
   let active=T.querySelector('td:first-child:not(.shadow)');if(active)touch[3](active,active.parentNode)
@@ -69,12 +73,7 @@ touch=[
   (td,tr)=>{tr.removeEventListener('touchstart',touch[0]);tr.removeEventListener('touchend',touch[1]);td.classList.add('shadow','table-secondary');numbers()}
 ],
 numbers=()=>T.querySelectorAll('td:first-child').forEach((td,i)=>td.textContent=i+1),
-svgs=[
-'<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>',
-'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>',
-'<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>'
-].map(el=>`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">${el}</svg>`),
-start=(arr)=>beforebegin(`<table id='T' class='fixed-top h-100 table table-responsive table-light'><caption class='h-2r d-flex justify-content-around text-center'>${svgs.reduce((str,el)=>`${str}<a class='w-25'>${el}</a>`,'')}</caption><caption class='pb-0 input-group'><input class='form-control text-center' value='${arr[3]}'/><div class='input-group-append'><span class='input-group-text'>03:00</span></div></caption>${[['secondary','подготовки'],['danger','отдыха между упражнениями'],['secondary','охлаждения']].reduce((str,ar,i)=>`${str}<caption class='d-flex justify-content-around alert-${ar[0]}'><small>Время ${ar[1]}</small><span>${arr[i]}</span></caption>`,'')}<tbody id='tbody'></tbody><caption class='pt-0 vw-100'><select id='select' class='custom-select'>${select_str}</select></caption></table>`),
+start=(arr)=>beforebegin(`<table id='T' class='fixed-top h-100 table table-responsive table-light'><caption class='h-2r d-flex justify-content-around text-center'>${svgs.reduce((str,el)=>`${str}<a class='w-25'>${el}</a>`,'')}</caption><caption class='pb-0 input-group'><input class='form-control text-center' value='${arr[3]}'/><div class='input-group-append'><span class='input-group-text'></span></div></caption>${[['secondary','подготовки'],['danger','отдыха между упражнениями'],['secondary','охлаждения']].reduce((str,ar,i)=>`${str}<caption class='d-flex justify-content-around alert-${ar[0]}'><small>Время ${ar[1]}</small><span>${arr[i]}</span></caption>`,'')}<tbody id='tbody'></tbody><caption class='pt-0 vw-100'><select id='select' class='custom-select'>${select_str}</select></caption></table>`),
 page3=(id,name,spans)=>db('img',(links)=>{
   links=links[id]
   let arr=Array.from(spans).map(el=>el.textContent)
@@ -83,7 +82,7 @@ page3=(id,name,spans)=>db('img',(links)=>{
     <tr><td>Время работы</td><td class='shadow-sm'>${time_str}:${time_str}</td><td colspan='2' rowspan='2'><input placeholder='Дополнительно' style='max-width:35vw' class='float-right form-control form-control-sm'/></td></tr>
     <tr><td>Время отдыха</td><td class='shadow-sm'>${time_str}:${time_str}</td></tr>
     <tr><td>Повторений</td><td>${arr[0]}</td><td>${inBtn('secondary','-')}</td><td>${inBtn('secondary','+')}</td></tr>
-    <tr><td colspan='4' class='p-0 pt-4 border-top'><img src='${links}' style='width:100vw'/></td></tr>
+    <tr><td colspan='4' class='p-0 pt-4 border-top'><img src='${links}' class='vw-100'/></td></tr>
   </table>`)
   pushState(3)
   let selects=T3.querySelectorAll('select'),input=T3.querySelector('input'),count=T3.querySelector('tr:nth-child(4) td:nth-child(2)');
@@ -93,7 +92,7 @@ page3=(id,name,spans)=>db('img',(links)=>{
   T3.querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>clicks[i](count))
   window.addEventListener('popstate',()=>{
     arr=[count.textContent,`${selects[0].value}:${selects[1].value}`,`${selects[2].value}:${selects[3].value}`,input.value]
-    for(let i=0;i<4;i++)spans[i].textContent=arr[i];allTime()
+    for(let i=0;i<4;i++)spans[i].textContent=arr[i];allTime();localStorage.lastDrill=arr.slice(0,-1)
   },{once:true})
 }),
 clicks=[(td)=>{let i=td.textContent-1;if(i>0)td.textContent=i},(td)=>td.textContent-=-1],
