@@ -16,3 +16,5 @@ db('workout-main',(arr)=>{
   JS('workout-update',[arr,click,update,remove])
 })
 windowBack()
+if(!localStorage.lastRest)localStorage.lastRest='00:00,00:00,00:00'
+if(!localStorage.lastDrill)localStorage.lastDrill='1,00:00,00:00'
