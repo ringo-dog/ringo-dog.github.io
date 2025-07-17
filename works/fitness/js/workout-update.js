@@ -1,4 +1,4 @@
-import{JS,db,inBtn,inSec,inTime,beforebegin,pushState}from'./function.js'
+import{JS,beforebegin,db,funBack,inBtn,inSec,inTime,pushState}from'./function.js'
 export default([arr,funClick,funSave,funTrash])=>{
 
 let select_str,time_str,tr_click,x=[0,0],y=[0,0],
@@ -48,10 +48,10 @@ clickCaption=(elem,i)=>{
   beforebegin(`<table id='T3' class='fixed-top h-100 table table-light text-center'><tr><th colspan='3'>${n.textContent}</th></tr><tr><td class='h3 shadow-sm'>${time_str}:${time_str}</td></tr></table>`)
   pushState(3)
   let selects=T3.querySelectorAll('select'),data=span.textContent;data.split(':').forEach((el,i)=>selects[i].value=el)
-  window.addEventListener('popstate',()=>{
-    n=`${selects[0].value}:${selects[1].value}`;if(n===data)return
-    span.textContent=n;allTime();data=localStorage.lastRest.split(',');data[i]=n;localStorage.lastRest=data
-  },{once:true})
+  funBack(()=>{
+    n=`${selects[0].value}:${selects[1].value}`;if(n!==data){span.textContent=n;allTime()}
+    data=localStorage.lastRest.split(',');if(data[i]!==n){data[i]=n;localStorage.lastRest=data}
+  })
 },
 clickNum=(td,tr)=>{
   let active=T.querySelector('td:first-child:not(.shadow)');if(active)touch[3](active,active.parentNode)
@@ -90,10 +90,11 @@ page3=(id,name,spans)=>db('img',(links)=>{
   arr[1].split(':').concat(arr[2].split(':')).forEach((el,i)=>selects[i].value=el)
   input.oninput=function(){if(this.value.length>15)this.value=this.value.slice(0,15)}
   T3.querySelectorAll('button').forEach((btn,i)=>btn.onclick=()=>clicks[i](count))
-  window.addEventListener('popstate',()=>{
+  funBack(()=>{
     arr=[count.textContent,`${selects[0].value}:${selects[1].value}`,`${selects[2].value}:${selects[3].value}`,input.value]
-    for(let i=0;i<4;i++)spans[i].textContent=arr[i];allTime();localStorage.lastDrill=arr.slice(0,-1)
-  },{once:true})
+    if(arr[0]==='1')arr[2]='00:00';for(let i=0;i<4;i++){if(spans[i].textContent!==arr[i]){spans[i].textContent=arr[i];arr.push(null)}}
+    if(arr.length>4){allTime()}localStorage.lastDrill=arr.slice(0,-1)
+  })
 }),
 clicks=[(td)=>{let i=td.textContent-1;if(i>0)td.textContent=i},(td)=>td.textContent-=-1],
 clickHead=[
